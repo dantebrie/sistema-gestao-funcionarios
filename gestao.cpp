@@ -6,7 +6,7 @@
 int code = 0;
 
 struct Funcionario{
-	char nome[100]; 
+	char name[100]; 
 	char cargo[50];
 };
 
@@ -22,6 +22,9 @@ int main(){
 }
 
 void menu(){
+	
+	int opcao;
+	
 	printf("********************************************\n");
 	printf("          CADASTRO DE FUNCIONÁRIOS          \n");
 	printf("********************************************\n");
@@ -33,6 +36,7 @@ void menu(){
 	printf("6 - Gerar folha de pagamento\n");
 	printf("7 - Gerar recibo de salário\n");
 	printf("0 - Sair");
+	scanf("%d", option)
 }
 
 
