@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <locale.h>
 
-
-int code = 0;
-
 struct Funcionario{
 	char name[100]; 
 	char position[50];
@@ -13,34 +10,40 @@ struct Funcionario{
 
 struct Funcionario funcionarios[100];
 
-void menu();
+void menu(), header();
 void cadastro(Funcionario *funcionarios);
-void options(int op, Funcionario *funcionarios);
+void options(int option, Funcionario *funcionarios);
+
+int code = 0;
 
 int main(){
 	
 	setlocale(LC_ALL, "Portuguese");
 	
-	int op;
-		
-	menu();
-	
-	do{
-		cadastro(funcionarios);
-	
-	}while(op);
-	
-	
-	
-}
-
-void menu(){
-	
 	int option;
 	
-	printf("*********************************************\n");
-	printf("      SISTEMA DE GESTÃO DE FUNCIONÁRIOS      \n");
-	printf("*********************************************\n");
+	Funcionario funcionarios;
+		
+	//Funcionario *funcionarios = (Funcionario *) malloc(3*sizeof(Funcionario));	
+	
+	do{
+		//option = menu(funcionarios);
+		funcionarios = cadastro();
+	
+	}while(option);
+	
+	return option;
+}
+void header(){
+	printf("*****************************************************************************************************************\n");
+	printf("\t\t\t\t\tSISTEMA DE GESTÃO DE FUNCIONÁRIOS\n");
+	printf("*****************************************************************************************************************\n");
+}
+
+void menu(Funcionario *funcionarios){
+	
+	int option;
+	header();
 	printf("1 - Cadastrar funcionário\n");
 	printf("2 - Listar cargos\n");
 	printf("3 - Listar funcionários\n");
@@ -60,57 +63,58 @@ void menu(){
 }
 
 void options(int op, Funcionario *funcionarios){
+	header();
 	switch(op){
 		case 1:
-			printf("---------------------------------------------\n");
-			printf("\t  Cadastrar funcionário\n");
-			printf("---------------------------------------------\n");
-			cadastro(funcionarios);				
+			printf("\n---------------------------------------------\n");
+			printf("\t    Cadastrar funcionário\n");
+			printf("---------------------------------------------\n");			
 			break;
 			
 		case 2: 
-			printf("---------------------------------------------\n");
-			printf("\t  Listar cargos\n");
+			printf("\n---------------------------------------------\n");
+			printf("\t        Listar cargos\n");
 			printf("---------------------------------------------\n");
 			break;
 			
 		case 3:
-			printf("---------------------------------------------\n");
-			printf("\t  Listar funcionários\n");
+			printf("\n---------------------------------------------\n");
+			printf("\t      Listar funcionários\n");
 			printf("---------------------------------------------\n");
 			break;
 			
 		case 4: 
-			printf("---------------------------------------------\n");
-			printf("\t  Listar funcionários por cargo\n");
+			printf("\n---------------------------------------------\n");
+			printf("\tListar funcionários por cargo\n");
 			printf("---------------------------------------------\n");
 			break;
 			
 		case 5: 
-			printf("---------------------------------------------\n");
-			printf("\t  Demissão de funcionário\n");
+			printf("\n---------------------------------------------\n");
+			printf("\t    Demissão de funcionário\n");
 			printf("---------------------------------------------\n");
 			break;
 			
 		case 6: 
+			printf("\n---------------------------------------------\n");
+			printf("\t   Gerar folha de pagamento\n");
 			printf("---------------------------------------------\n");
-			printf("\t  Gerar folha de pagamento\n");
-			printf("---------------------------------------------\n");
+			cadastro(funcionarios);
 			break;
 			
 		case 7: 
-			printf("---------------------------------------------\n");
-			printf("\t  Gerar recibo de salário\n");
+			printf("\n---------------------------------------------\n");
+			printf("\t    Gerar recibo de salário\n");
 			printf("---------------------------------------------\n");
 			break;
 			
 		case 0:
-			printf("\nEncerrando sistema...");
+			printf("\n\nEncerrando sistema...");
 			abort();
 			break;
 			
 		default:
-			printf("ERRO! Número incorreto!\n");
+			printf("\nERRO! Número incorreto!\n");
 			printf("Só é possível digitar numéros de 0 a 7!");
 			printf("Tente novamente!");
 			break;
