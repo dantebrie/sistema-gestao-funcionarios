@@ -9,7 +9,7 @@ typedef struct {
 }Funcionario;
 
 
-void menu(), header();
+void menu(), header(), listarCargos(), listarFuncionarios(), listarFuncionariosCargo(), demissao(), folhaPagamento(), reciboSalario();
 void cadastro(Funcionario *funcionarios);
 void options(int option, Funcionario *funcionarios);
 
@@ -20,12 +20,9 @@ int main(){
 	setlocale(LC_ALL, "Portuguese");
 	
 	Funcionario funcionarios;
-			
-	int option;
 	
-	funcionarios = cadastro();
+	menu();
 	
-	return option;
 }
 
 void header(){
