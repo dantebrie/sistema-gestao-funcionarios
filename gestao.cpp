@@ -2,13 +2,12 @@
 #include <stdlib.h>
 #include <locale.h>
 
-struct Funcionario{
+typedef struct {
 	char name[100]; 
 	char position[50];
 	float salary;
-};
+}Funcionario;
 
-struct Funcionario funcionarios[100];
 
 void menu(), header();
 void cadastro(Funcionario *funcionarios);
@@ -20,27 +19,22 @@ int main(){
 	
 	setlocale(LC_ALL, "Portuguese");
 	
+	Funcionario funcionarios;
+			
 	int option;
 	
-	Funcionario funcionarios;
-		
-	//Funcionario *funcionarios = (Funcionario *) malloc(3*sizeof(Funcionario));	
-	
-	do{
-		//option = menu(funcionarios);
-		funcionarios = cadastro();
-	
-	}while(option);
+	funcionarios = cadastro();
 	
 	return option;
 }
+
 void header(){
 	printf("*****************************************************************************************************************\n");
 	printf("\t\t\t\t\tSISTEMA DE GESTÃO DE FUNCIONÁRIOS\n");
 	printf("*****************************************************************************************************************\n");
 }
 
-void menu(Funcionario *funcionarios){
+void menu(Funcionario funcionarios){
 	
 	int option;
 	header();
@@ -62,50 +56,56 @@ void menu(Funcionario *funcionarios){
 	printf("\n---------------------------------------------\n");
 }
 
-void options(int op, Funcionario *funcionarios){
+void options(int op, Funcionario funcionarios){
 	header();
 	switch(op){
 		case 1:
 			printf("\n---------------------------------------------\n");
 			printf("\t    Cadastrar funcionário\n");
-			printf("---------------------------------------------\n");			
+			printf("---------------------------------------------\n");		
+			cadastro(Funcionario funcionarios);
 			break;
 			
 		case 2: 
 			printf("\n---------------------------------------------\n");
 			printf("\t        Listar cargos\n");
 			printf("---------------------------------------------\n");
+			listarCargos();
 			break;
 			
 		case 3:
 			printf("\n---------------------------------------------\n");
 			printf("\t      Listar funcionários\n");
 			printf("---------------------------------------------\n");
+			listarFuncionarios();
 			break;
 			
 		case 4: 
 			printf("\n---------------------------------------------\n");
 			printf("\tListar funcionários por cargo\n");
 			printf("---------------------------------------------\n");
+			listarFuncionariosCargo();
 			break;
 			
 		case 5: 
 			printf("\n---------------------------------------------\n");
 			printf("\t    Demissão de funcionário\n");
 			printf("---------------------------------------------\n");
+			demissao();
 			break;
 			
 		case 6: 
 			printf("\n---------------------------------------------\n");
 			printf("\t   Gerar folha de pagamento\n");
 			printf("---------------------------------------------\n");
-			cadastro(funcionarios);
+			folhaPagamento();
 			break;
 			
 		case 7: 
 			printf("\n---------------------------------------------\n");
 			printf("\t    Gerar recibo de salário\n");
 			printf("---------------------------------------------\n");
+			reciboSalario();
 			break;
 			
 		case 0:
@@ -137,5 +137,28 @@ void cadastro(Funcionario *funcionarios){
 	fflush(stdin);
 }
 
+void listarCargos(){
+	printf("Testando lista");
+}
+
+void listarFuncionarios(){
+	printf("Testando lista fun.");
+}
+
+void listarFuncionariosCargo(){
+	printf("Testando lista fun. cargos");
+}
+
+void demissao(){
+	printf("Testando demissão");
+}
+
+void folhaPagamento(){
+	printf("Testando folha de pagamento");	
+}
+
+void reciboSalario(){
+	printf("Testando recibo pagamento");
+}
 
 
