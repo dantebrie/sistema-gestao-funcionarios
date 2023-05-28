@@ -8,10 +8,10 @@ typedef struct {
 	float salary;
 }Funcionario;
 
-int menu(Funcionario funcionarios);
+int menu(Funcionario *funcionarios);
 void header(), listarCargos(), listarFuncionarios(), listarFuncionariosCargo(), demissao(), folhaPagamento(), reciboSalario();
-void cadastro(Funcionario funcionarios);
-void options(int op, Funcionario func);
+void cadastro(Funcionario *funcionarios);
+void options(int op, Funcionario *funcionarios);
 
 int code = 0;
 
@@ -21,10 +21,11 @@ int main(){
 	
 	int option;
 	
-	Funcionario funcionarios;
-	
+	Funcionario *funcionarios = (Funcionario *) malloc(3*sizeof(Funcionario));
+		
 	option = menu(funcionarios);
 	
+	system("cls");
 }
 
 void header(){
@@ -33,12 +34,14 @@ void header(){
 	printf("*****************************************************************************************************************\n");
 }
 
-int menu(Funcionario funcionarios){
+int menu(Funcionario *funcionarios){
 	
 	int option;
 	
 	header();
-	printf("1 - Cadastrar funcionário\n");
+	
+	printf("1 - Cadastrar funcionário\n"); //Não tô entendendo essa parte, tá escrito que tem que cadastrar o funcionário e o cargo mas como fazer isso? É de vez?
+	//printf("2 - Cadastrar cargo\n");
 	printf("2 - Listar cargos\n");
 	printf("3 - Listar funcionários\n");
 	printf("4 - Listar funcionários por cargo\n");
@@ -54,16 +57,20 @@ int menu(Funcionario funcionarios){
 	options(option, funcionarios);
 	
 	printf("\n---------------------------------------------\n");
+	
+	return option;
 }
 
-void options(int op, Funcionario func){
+void options(int op, Funcionario *funcionarios){
+	
 	header();
+	
 	switch(op){
 		case 1:
 			printf("\n---------------------------------------------\n");
 			printf("\t    Cadastrar funcionário\n");
 			printf("---------------------------------------------\n");		
-			cadastro(func);
+			cadastro(funcionarios);
 			break;
 			
 		case 2: 
@@ -121,18 +128,18 @@ void options(int op, Funcionario func){
 		}	
 }
 
-void cadastro(Funcionario func){
+void cadastro(Funcionario *funcionarios){
 
 	printf("Nome do funcionário: ");
-	fgets(func.name, 100, stdin);
+	fgets(funcionarios->name, 100, stdin);
 	fflush(stdin);
 	
 	printf("Cargo: ");
-	fgets(func.position, 50, stdin);
+	fgets(funcionarios->position, 50, stdin);
 	fflush(stdin);
 	
 	printf("Salário: ");
-	scanf("%f", &func.salary);
+	scanf("%f", &funcionarios->salary);
 	fflush(stdin);
 }
 
