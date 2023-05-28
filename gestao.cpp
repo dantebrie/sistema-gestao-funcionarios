@@ -8,20 +8,22 @@ typedef struct {
 	float salary;
 }Funcionario;
 
-
-void menu(), header(), listarCargos(), listarFuncionarios(), listarFuncionariosCargo(), demissao(), folhaPagamento(), reciboSalario();
-void cadastro(Funcionario *funcionarios);
-void options(int option, Funcionario *funcionarios);
+int menu(Funcionario funcionarios);
+void header(), listarCargos(), listarFuncionarios(), listarFuncionariosCargo(), demissao(), folhaPagamento(), reciboSalario();
+void cadastro(Funcionario funcionarios);
+void options(int op, Funcionario func);
 
 int code = 0;
 
 int main(){
-	
+
 	setlocale(LC_ALL, "Portuguese");
+	
+	int option;
 	
 	Funcionario funcionarios;
 	
-	menu();
+	option = menu(funcionarios);
 	
 }
 
@@ -31,9 +33,10 @@ void header(){
 	printf("*****************************************************************************************************************\n");
 }
 
-void menu(Funcionario funcionarios){
+int menu(Funcionario funcionarios){
 	
 	int option;
+	
 	header();
 	printf("1 - Cadastrar funcionário\n");
 	printf("2 - Listar cargos\n");
@@ -45,7 +48,7 @@ void menu(Funcionario funcionarios){
 	printf("0 - Sair\n");
 	printf("---------------------------------------------\n");
 	printf("Digite o número da opção desejada: ");
-	scanf("%d", option);
+	scanf("%d", &option);
 	fflush(stdin);
 	
 	options(option, funcionarios);
@@ -53,56 +56,56 @@ void menu(Funcionario funcionarios){
 	printf("\n---------------------------------------------\n");
 }
 
-void options(int op, Funcionario funcionarios){
+void options(int op, Funcionario func){
 	header();
 	switch(op){
 		case 1:
 			printf("\n---------------------------------------------\n");
 			printf("\t    Cadastrar funcionário\n");
 			printf("---------------------------------------------\n");		
-			cadastro(Funcionario funcionarios);
+			cadastro(func);
 			break;
 			
 		case 2: 
 			printf("\n---------------------------------------------\n");
 			printf("\t        Listar cargos\n");
 			printf("---------------------------------------------\n");
-			listarCargos();
+			//listarCargos();
 			break;
 			
 		case 3:
 			printf("\n---------------------------------------------\n");
 			printf("\t      Listar funcionários\n");
 			printf("---------------------------------------------\n");
-			listarFuncionarios();
+			//listarFuncionarios();
 			break;
 			
 		case 4: 
 			printf("\n---------------------------------------------\n");
 			printf("\tListar funcionários por cargo\n");
 			printf("---------------------------------------------\n");
-			listarFuncionariosCargo();
+			//listarFuncionariosCargo();
 			break;
 			
 		case 5: 
 			printf("\n---------------------------------------------\n");
 			printf("\t    Demissão de funcionário\n");
 			printf("---------------------------------------------\n");
-			demissao();
+			//demissao();
 			break;
 			
 		case 6: 
 			printf("\n---------------------------------------------\n");
 			printf("\t   Gerar folha de pagamento\n");
 			printf("---------------------------------------------\n");
-			folhaPagamento();
+			//folhaPagamento();
 			break;
 			
 		case 7: 
 			printf("\n---------------------------------------------\n");
 			printf("\t    Gerar recibo de salário\n");
 			printf("---------------------------------------------\n");
-			reciboSalario();
+			//reciboSalario();
 			break;
 			
 		case 0:
@@ -116,21 +119,20 @@ void options(int op, Funcionario funcionarios){
 			printf("Tente novamente!");
 			break;
 		}	
-			
 }
 
-void cadastro(Funcionario *funcionarios){
+void cadastro(Funcionario func){
 
 	printf("Nome do funcionário: ");
-	gets(funcionarios->name);
+	fgets(func.name, 100, stdin);
 	fflush(stdin);
 	
 	printf("Cargo: ");
-	gets(funcionarios->position);
+	fgets(func.position, 50, stdin);
 	fflush(stdin);
 	
 	printf("Salário: ");
-	scanf("%f", &funcionarios->salary);
+	scanf("%f", &func.salary);
 	fflush(stdin);
 }
 
