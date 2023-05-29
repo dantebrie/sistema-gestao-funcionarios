@@ -23,10 +23,13 @@ int main(){
 	
 	Funcionario *funcionarios = (Funcionario *) malloc(3*sizeof(Funcionario));
 		
-	opcao = menu(funcionarios);
-	
-	system("cls");
+	do{
+		opcao = menu(funcionarios);
+		
+		system("cls");
+	}while(opcao != 0);
 }
+	
 
 void cabecalho(){
 	printf("*****************************************************************************************************************\n");
@@ -131,28 +134,42 @@ void opcoes(int op, Funcionario *funcionarios){
 void cadastro(Funcionario *funcionarios){
 
 	printf("Nome do funcionário: ");
-	fgets(funcionarios->nome, 100, stdin);
+	fgets(funcionarios[codigo].nome, 100, stdin);
 	fflush(stdin);
 	
 	printf("Cargo: ");
-	fgets(funcionarios->cargo, 50, stdin);
+	fgets(funcionarios[codigo].cargo, 50, stdin);
 	fflush(stdin);
 	
 	printf("Salário: ");
-	scanf("%f", &funcionarios->salario);
+	scanf("%f", &funcionarios[codigo].salario);
 	fflush(stdin);
 }
 
-void listarCargos(){
-	printf("Testando lista");
+void listarCargos(Funcionario *funcionarios){
+	printf("Cargos: ");
+	for(int i = 0; i < codigo; i++){
+		printf("%s\n", funcionarios[codigo].cargo);
+	}
 }
 
-void listarFuncionarios(){
-	printf("Testando lista fun.");
+void listarFuncionarios(Funcionario *funcionarios){
+	printf("Nome: ");
+	for(int i = 0; i < codigo; i++){
+		printf("%s\n", funcionarios[codigo].nome);
+	}
 }
 
-void listarFuncionariosCargo(){
-	printf("Testando lista fun. cargos");
+void listarFuncionariosCargo(Funcionario *funcionarios){
+	printf("Funcionários: ");
+	for(int i = 0; i < codigo; i++){
+		printf("%s\n", funcionarios[codigo].nome);
+	}
+
+	printf("Cargos: ");
+	for(int i = 0; i < codigo; i++){
+		printf(" %s\n", funcionarios[codigo].cargo);
+	}
 }
 
 void demissao(){
