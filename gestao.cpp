@@ -165,7 +165,7 @@ void listarFuncionarios(Funcionario *funcionarios){
 	}
 }
 
-void listarFuncionariosCargo(Funcionario *funcionarios){
+void listarFuncionariosCargo(Funcionario *funcionarios){ //Tem que consertar isso aqui
 	
 	printf("Funcionários: ");
 	for(int i = 0; i < codigo; i++){
