@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <string.h>
 
 typedef struct {
 	char nome[100]; 
@@ -28,7 +27,6 @@ int main(){
 		
 	do{
 		opcao = menu(funcionarios);
-		
 	}while(opcao != 0);
 }
 	
@@ -128,8 +126,8 @@ void opcoes(int op, Funcionario *funcionarios){
 			
 		default:
 			printf("\nERRO! Número incorreto!\n");
-			printf(" Só é possível digitar numéros de 0 a 7!");
-			printf(" Tente novamente!");
+			printf("Só é possível digitar numéros de 0 a 7!");
+			printf("Tente novamente!");
 			break;
 		}	
 }
@@ -138,9 +136,11 @@ void cadastro(Funcionario *funcionarios){
 
 	printf("Nome do funcionário: ");
 	fgets(funcionarios[codigo].nome, 100, stdin);
+	fflush(stdin);
 	
-	printf("Cargo do funcionário: ");
+	printf("Cargo do funcionário ");
 	fgets(funcionarios[codigo].cargo, 50, stdin);
+	fflush(stdin);
 	
 	printf("Salário do funcionário: ");
 	scanf("%f", &funcionarios[codigo].salario);
@@ -150,34 +150,31 @@ void cadastro(Funcionario *funcionarios){
 }
 
 void listarCargos(Funcionario *funcionarios){
+	
 	printf("Cargos: ");
 	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].cargo);
+		printf("%s\n", funcionarios[i].cargo);
 	}	
-	printf("%s\n", funcionarios[codigo].cargo);
 }
 
 void listarFuncionarios(Funcionario *funcionarios){
 	
-	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].nome);
-	}
 	printf("Nome: ");
-	
 	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].nome);
+		printf("%s\n", funcionarios[i].nome);
 	}
 }
 
-void listarFuncionariosCargo(Funcionario *funcionarios){
+void listarFuncionariosCargo(Funcionario *funcionarios){ //Tem que consertar isso aqui
+	
 	printf("Funcionários: ");
 	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].nome);
+		printf("%s\n", funcionarios[i].nome);
 	}
 
 	printf("Cargos: ");
 	for(int i = 0; i < codigo; i++){
-		printf(" %s\n", funcionarios[codigo].cargo);
+		printf(" %s\n", funcionarios[i].cargo);
 	}
 }
 
@@ -192,5 +189,4 @@ void folhaPagamento(){
 void reciboSalario(){
 	printf("Testando recibo pagamento");
 }
-
 
