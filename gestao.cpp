@@ -33,7 +33,7 @@ int main(){
 
 void cabecalho(){
 	printf("*****************************************************************************************************************\n");
-	printf("\t\t\t\t\tSISTEMA DE GEST√O DE FUNCION¡RIOS\n");
+	printf("\t\t\t\t\tSISTEMA DE GEST√ÉO DE FUNCION√ÅRIOS\n");
 	printf("*****************************************************************************************************************\n");
 }
 
@@ -43,17 +43,17 @@ int menu(Funcionario *funcionarios){
 	
 	cabecalho();
 	
-	printf("1 - Cadastrar funcion·rio\n"); //N„o tÙ entendendo essa parte, t· escrito que tem que cadastrar o funcion·rio e o cargo mas como fazer isso? … de vez?
+	printf("1 - Cadastrar funcion√°rio\n"); //N√£o t√¥ entendendo essa parte, t√° escrito que tem que cadastrar o funcion√°rio e o cargo mas como fazer isso? √â de vez?
 	//printf("2 - Cadastrar cargo\n");
 	printf("2 - Listar cargos\n");
-	printf("3 - Listar funcion·rios\n");
-	printf("4 - Listar funcion·rios por cargo\n");
-	printf("5 - Realizar demiss„o de um funcion·rio\n");
+	printf("3 - Listar funcion√°rios\n");
+	printf("4 - Listar funcion√°rios por cargo\n");
+	printf("5 - Realizar demiss√£o de um funcion√°rio\n");
 	printf("6 - Gerar folha de pagamento\n");
-	printf("7 - Gerar recibo de sal·rio\n");
+	printf("7 - Gerar recibo de sal√°rio\n");
 	printf("0 - Sair\n");
 	printf("---------------------------------------------\n");
-	printf("Digite o n˙mero da opÁ„o desejada: ");
+	printf("Digite o n√∫mero da op√ß√£o desejada: ");
 	scanf("%d", &opcao);
 	fflush(stdin);
 	
@@ -72,7 +72,7 @@ void opcoes(int op, Funcionario *funcionarios){
 	switch(op){
 		case 1:
 			printf("\n---------------------------------------------\n");
-			printf("\t    Cadastrar funcion·rio\n");
+			printf("\t    Cadastrar funcion√°rio\n");
 			printf("---------------------------------------------\n");		
 			cadastro(funcionarios);
 			break;
@@ -86,21 +86,21 @@ void opcoes(int op, Funcionario *funcionarios){
 			
 		case 3:
 			printf("\n---------------------------------------------\n");
-			printf("\t      Listar funcion·rios\n");
+			printf("\t      Listar funcion√°rios\n");
 			printf("---------------------------------------------\n");
 			listarFuncionarios(funcionarios);
 			break;
 			
 		case 4: 
 			printf("\n---------------------------------------------\n");
-			printf("\tListar funcion·rios por cargo\n");
+			printf("\tListar funcion√°rios por cargo\n");
 			printf("---------------------------------------------\n");
 			listarFuncionariosCargo(funcionarios);
 			break;
 			
 		case 5: 
 			printf("\n---------------------------------------------\n");
-			printf("\t    Demiss„o de funcion·rio\n");
+			printf("\t    Demiss√£o de funcion√°rio\n");
 			printf("---------------------------------------------\n");
 			//demissao();
 			break;
@@ -114,7 +114,7 @@ void opcoes(int op, Funcionario *funcionarios){
 			
 		case 7: 
 			printf("\n---------------------------------------------\n");
-			printf("\t    Gerar recibo de sal·rio\n");
+			printf("\t    Gerar recibo de sal√°rio\n");
 			printf("---------------------------------------------\n");
 			//reciboSalario();
 			break;
@@ -125,8 +125,8 @@ void opcoes(int op, Funcionario *funcionarios){
 			break;
 			
 		default:
-			printf("\nERRO! N˙mero incorreto!\n");
-			printf("SÛ È possÌvel digitar numÈros de 0 a 7!");
+			printf("\nERRO! N√∫mero incorreto!\n");
+			printf("S√≥ √© poss√≠vel digitar num√©ros de 0 a 7!");
 			printf("Tente novamente!");
 			break;
 		}	
@@ -134,15 +134,15 @@ void opcoes(int op, Funcionario *funcionarios){
 
 void cadastro(Funcionario *funcionarios){
 
-	printf("Nome do funcion·rio: ");
+	printf("Nome do funcion√°rio: ");
 	fgets(funcionarios[codigo].nome, 100, stdin);
 	fflush(stdin);
 	
-	printf("Cargo: ");
+	printf("Cargo do funcion√°rio ");
 	fgets(funcionarios[codigo].cargo, 50, stdin);
 	fflush(stdin);
 	
-	printf("Sal·rio: ");
+	printf("Sal√°rio do funcion√°rio: ");
 	scanf("%f", &funcionarios[codigo].salario);
 	fflush(stdin);
 	
@@ -167,7 +167,7 @@ void listarFuncionarios(Funcionario *funcionarios){
 
 void listarFuncionariosCargo(Funcionario *funcionarios){ //Tem que consertar isso aqui
 	
-	printf("Funcion·rios: ");
+	printf("Funcion√°rios: ");
 	for(int i = 0; i < codigo; i++){
 		printf("%s\n", funcionarios[i].nome);
 	}
@@ -179,7 +179,7 @@ void listarFuncionariosCargo(Funcionario *funcionarios){ //Tem que consertar iss
 }
 
 void demissao(){
-	printf("Testando demiss„o");
+	printf("Testando demiss√£o");
 }
 
 void folhaPagamento(){
@@ -189,5 +189,4 @@ void folhaPagamento(){
 void reciboSalario(){
 	printf("Testando recibo pagamento");
 }
-
 
