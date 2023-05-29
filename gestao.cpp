@@ -61,7 +61,6 @@ int menu(Funcionario *funcionarios){
 	
 	printf("\n---------------------------------------------\n");
 	
-	system("cls");
 	
 	return opcao;
 }
