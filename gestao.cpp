@@ -3,32 +3,32 @@
 #include <locale.h>
 
 typedef struct {
-	char name[100]; 
-	char position[50];
-	float salary;
+	char nome[100]; 
+	char cargo[50];
+	float salario;
 }Funcionario;
 
 int menu(Funcionario *funcionarios);
-void header(), listarCargos(), listarFuncionarios(), listarFuncionariosCargo(), demissao(), folhaPagamento(), reciboSalario();
+void cabecalho(), listarCargos(), listarFuncionarios(), listarFuncionariosCargo(), demissao(), folhaPagamento(), reciboSalario();
 void cadastro(Funcionario *funcionarios);
-void options(int op, Funcionario *funcionarios);
+void opcoes(int op, Funcionario *funcionarios);
 
-int code = 0;
+int codigo = 0;
 
 int main(){
 
 	setlocale(LC_ALL, "Portuguese");
 	
-	int option;
+	int opcao;
 	
 	Funcionario *funcionarios = (Funcionario *) malloc(3*sizeof(Funcionario));
 		
-	option = menu(funcionarios);
+	opcao = menu(funcionarios);
 	
 	system("cls");
 }
 
-void header(){
+void cabecalho(){
 	printf("*****************************************************************************************************************\n");
 	printf("\t\t\t\t\tSISTEMA DE GESTÃO DE FUNCIONÁRIOS\n");
 	printf("*****************************************************************************************************************\n");
@@ -36,9 +36,9 @@ void header(){
 
 int menu(Funcionario *funcionarios){
 	
-	int option;
+	int opcao;
 	
-	header();
+	cabecalho();
 	
 	printf("1 - Cadastrar funcionário\n"); //Não tô entendendo essa parte, tá escrito que tem que cadastrar o funcionário e o cargo mas como fazer isso? É de vez?
 	//printf("2 - Cadastrar cargo\n");
@@ -51,19 +51,19 @@ int menu(Funcionario *funcionarios){
 	printf("0 - Sair\n");
 	printf("---------------------------------------------\n");
 	printf("Digite o número da opção desejada: ");
-	scanf("%d", &option);
+	scanf("%d", &opcao);
 	fflush(stdin);
 	
-	options(option, funcionarios);
+	opcoes(opcao, funcionarios);
 	
 	printf("\n---------------------------------------------\n");
 	
-	return option;
+	return opcao;
 }
 
-void options(int op, Funcionario *funcionarios){
+void opcoes(int op, Funcionario *funcionarios){
 	
-	header();
+	cabecalho();
 	
 	switch(op){
 		case 1:
@@ -131,15 +131,15 @@ void options(int op, Funcionario *funcionarios){
 void cadastro(Funcionario *funcionarios){
 
 	printf("Nome do funcionário: ");
-	fgets(funcionarios->name, 100, stdin);
+	fgets(funcionarios->nome, 100, stdin);
 	fflush(stdin);
 	
 	printf("Cargo: ");
-	fgets(funcionarios->position, 50, stdin);
+	fgets(funcionarios->cargo, 50, stdin);
 	fflush(stdin);
 	
 	printf("Salário: ");
-	scanf("%f", &funcionarios->salary);
+	scanf("%f", &funcionarios->salario);
 	fflush(stdin);
 }
 
