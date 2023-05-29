@@ -27,7 +27,6 @@ int main(){
 		
 	do{
 		opcao = menu(funcionarios);
-		
 	}while(opcao != 0);
 }
 	
@@ -151,34 +150,31 @@ void cadastro(Funcionario *funcionarios){
 }
 
 void listarCargos(Funcionario *funcionarios){
+	
 	printf("Cargos: ");
 	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].cargo);
+		printf("%s\n", funcionarios[i].cargo);
 	}	
-	printf("%s\n", funcionarios[codigo].cargo);
 }
 
 void listarFuncionarios(Funcionario *funcionarios){
 	
-	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].nome);
-	}
 	printf("Nome: ");
-	
 	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].nome);
+		printf("%s\n", funcionarios[i].nome);
 	}
 }
 
 void listarFuncionariosCargo(Funcionario *funcionarios){
+	
 	printf("Funcionários: ");
 	for(int i = 0; i < codigo; i++){
-		printf("%s\n", funcionarios[codigo].nome);
+		printf("%s\n", funcionarios[i].nome);
 	}
 
 	printf("Cargos: ");
 	for(int i = 0; i < codigo; i++){
-		printf(" %s\n", funcionarios[codigo].cargo);
+		printf(" %s\n", funcionarios[i].cargo);
 	}
 }
 
