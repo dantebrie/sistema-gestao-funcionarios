@@ -61,6 +61,8 @@ int menu(Funcionario *funcionarios){
 	
 	printf("\n---------------------------------------------\n");
 	
+	system("cls");
+	
 	return opcao;
 }
 
@@ -144,6 +146,8 @@ void cadastro(Funcionario *funcionarios){
 	printf("Salário: ");
 	scanf("%f", &funcionarios[codigo].salario);
 	fflush(stdin);
+	
+	codigo++;
 }
 
 void listarCargos(Funcionario *funcionarios){
