@@ -9,7 +9,9 @@ typedef struct {
 }Funcionario;
 
 int menu(Funcionario *funcionarios);
-void cabecalho(), listarCargos(), listarFuncionarios(), listarFuncionariosCargo(), demissao(), folhaPagamento(), reciboSalario();
+void cabecalho();
+void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
+void listarFuncionariosCargo(Funcionario *funcionarios), demissao(), folhaPagamento(), reciboSalario();
 void cadastro(Funcionario *funcionarios);
 void opcoes(int op, Funcionario *funcionarios);
 
@@ -26,7 +28,6 @@ int main(){
 	do{
 		opcao = menu(funcionarios);
 		
-		system("cls");
 	}while(opcao != 0);
 }
 	
@@ -60,7 +61,7 @@ int menu(Funcionario *funcionarios){
 	opcoes(opcao, funcionarios);
 	
 	printf("\n---------------------------------------------\n");
-	
+
 	
 	return opcao;
 }
@@ -81,21 +82,21 @@ void opcoes(int op, Funcionario *funcionarios){
 			printf("\n---------------------------------------------\n");
 			printf("\t        Listar cargos\n");
 			printf("---------------------------------------------\n");
-			//listarCargos();
+			listarCargos(funcionarios);
 			break;
 			
 		case 3:
 			printf("\n---------------------------------------------\n");
 			printf("\t      Listar funcionários\n");
 			printf("---------------------------------------------\n");
-			//listarFuncionarios();
+			listarFuncionarios(funcionarios);
 			break;
 			
 		case 4: 
 			printf("\n---------------------------------------------\n");
 			printf("\tListar funcionários por cargo\n");
 			printf("---------------------------------------------\n");
-			//listarFuncionariosCargo();
+			listarFuncionariosCargo(funcionarios);
 			break;
 			
 		case 5: 
@@ -153,11 +154,17 @@ void listarCargos(Funcionario *funcionarios){
 	printf("Cargos: ");
 	for(int i = 0; i < codigo; i++){
 		printf("%s\n", funcionarios[codigo].cargo);
-	}
+	}	
+	printf("%s\n", funcionarios[codigo].cargo);
 }
 
 void listarFuncionarios(Funcionario *funcionarios){
+	
+	for(int i = 0; i < codigo; i++){
+		printf("%s\n", funcionarios[codigo].nome);
+	}
 	printf("Nome: ");
+	
 	for(int i = 0; i < codigo; i++){
 		printf("%s\n", funcionarios[codigo].nome);
 	}
