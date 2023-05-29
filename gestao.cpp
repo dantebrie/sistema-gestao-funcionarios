@@ -6,13 +6,17 @@ typedef struct {
 	char nome[100]; 
 	char cargo[50];
 	float salario;
+	int idade;
+	int cpf;
+	
 }Funcionario;
 
 int menu(Funcionario *funcionarios);
 void cabecalho();
 void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
 void listarFuncionariosCargo(Funcionario *funcionarios), demissao(), folhaPagamento(), reciboSalario();
-void cadastro(Funcionario *funcionarios);
+void cadastroFuncionario(Funcionario *funcionarios);
+//void cadastroCargo(Funcionario *funcionarios);
 void opcoes(int op, Funcionario *funcionarios);
 
 int codigo = 0;
@@ -80,8 +84,15 @@ void opcoes(int op, Funcionario *funcionarios){
 			printf("\n---------------------------------------------\n");
 			printf("\t    Cadastrar funcionário\n");
 			printf("---------------------------------------------\n");		
-			cadastro(funcionarios);
+			cadastroFuncionario(funcionarios);
 			break;
+			
+		/*case 2: 
+			printf("\n---------------------------------------------\n");
+			printf("\t    Cadastrar cargo\n");
+			printf("---------------------------------------------\n");		
+			cadastroCargo(funcionarios);
+			break;*/
 			
 		case 2: 
 			printf("\n---------------------------------------------\n");
@@ -138,7 +149,7 @@ void opcoes(int op, Funcionario *funcionarios){
 		}	
 }
 
-void cadastro(Funcionario *funcionarios){
+void cadastroFuncionario(Funcionario *funcionarios){
 
 	printf("Nome do funcionário: ");
 	fgets(funcionarios[codigo].nome, 100, stdin);
@@ -152,8 +163,25 @@ void cadastro(Funcionario *funcionarios){
 	scanf("%f", &funcionarios[codigo].salario);
 	fflush(stdin);
 	
+	printf("Idade: ");
+	scanf("%d", &funcionarios[codigo].idade);
+	fflush(stdin);
+	
+	printf("CPF: ");
+	scanf("%d", &funcionarios[codigo].cpf);
+	fflush(stdin);
+	
 	codigo++;
 }
+
+/*void cadastroCargo(Funcionario *funcionarios){ //A parte do contador se torna um problema se separar assim
+	
+	printf("Cargo do funcionário: ");
+	fgets(funcionarios[codigo].cargo, 50, stdin);
+	fflush(stdin);
+	
+}
+*/
 
 void listarCargos(Funcionario *funcionarios){
 	
