@@ -13,12 +13,12 @@ typedef struct {
 int menu(Funcionario *funcionarios);
 void cabecalho();
 void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
-void listarFuncionariosCargo(Funcionario *funcionarios), demissao(), folhaPagamento(), reciboSalario();
+void listarFuncionariosCargo(Funcionario *funcionarios), demissao(Funcionario *funcionarios), folhaPagamento(), reciboSalario();
 void cadastroFuncionario(Funcionario *funcionarios);
 //void cadastroCargo(Funcionario *funcionarios);
 void opcoes(int op, Funcionario *funcionarios);
 
-int codigo = 0;
+int codigo = 0, retorno = -1;
 
 int main(){
 
@@ -26,7 +26,7 @@ int main(){
 	
 	int opcao;
 	
-	Funcionario *funcionarios = (Funcionario *) malloc(3*sizeof(Funcionario));
+	Funcionario *funcionarios = (Funcionario *) malloc(sizeof(Funcionario));
 		
 	do{
 		opcao = menu(funcionarios);
@@ -118,7 +118,7 @@ void opcoes(int op, Funcionario *funcionarios){
 			printf("\n---------------------------------------------\n");
 			printf("\t    Demissão de funcionário\n");
 			printf("---------------------------------------------\n");
-			//demissao();
+			demissao(funcionarios);
 			break;
 			
 		case 6: 
@@ -165,18 +165,44 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	fflush(stdin);
 	
 	printf("Salário do funcionário: ");
-	scanf("%f", &funcionarios[codigo].salario);
+	retorno = scanf("%f", &funcionarios[codigo].salario);
 	fflush(stdin);
+	
+	if(retorno == 0){
+		printf("\nERRO! Digite o salário novamente! Lembre-se salário é constituído de números!");
+		printf("\n\nSalário do funcionário:: ");
+		retorno = scanf("%d", &funcionarios[codigo].salario);
+		fflush(stdin);
+	}
+	
+	retorno = -1;
 	
 	printf("Idade: ");
-	scanf("%d", &funcionarios[codigo].idade);
+	retorno = scanf("%d", &funcionarios[codigo].idade);
 	fflush(stdin);
+	
+	if(retorno == 0){
+		printf("\nERRO! Digite a idade novamente! Lembre-se idade são apenas números!");
+		printf("\n\nIdade: ");
+		retorno = scanf("%d", &funcionarios[codigo].idade);
+		fflush(stdin);
+	}
+	
+	retorno = -1;
 	
 	printf("CPF: ");
-	scanf("%d", &funcionarios[codigo].cpf);
+	retorno = scanf("%d", &funcionarios[codigo].cpf);
 	fflush(stdin);
 	
+	if(retorno == 0){
+		printf("\nERRO! Digite o CPF novamente! Lembre-se CPF são apenas números!");
+		printf("\n\nCPF: ");
+		retorno = scanf("%d", &funcionarios[codigo].cpf);
+		fflush(stdin);
+	}
+
 	codigo++;
+	printf("\nCadastro concluído!");
 }
 
 /*void cadastroCargo(Funcionario *funcionarios){ //A parte do contador se torna um problema se separar assim
