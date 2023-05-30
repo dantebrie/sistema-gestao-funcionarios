@@ -9,8 +9,8 @@ typedef struct {
 	int idade;
 	int cpf;
 	
-	struct No *prox;
-	struct No *ant;
+	struct Funcionario *proximo;
+	struct Funcionario *anterior;
 }Funcionario;
 
 int menu(Funcionario *funcionarios);
