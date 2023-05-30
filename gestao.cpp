@@ -8,9 +8,6 @@ typedef struct {
 	float salario;
 	int idade;
 	int cpf;
-	
-	struct Funcionario *proximo;
-	struct Funcionario *anterior;
 }Funcionario;
 
 int menu(Funcionario *funcionarios);
