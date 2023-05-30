@@ -152,10 +152,16 @@ void cadastroFuncionario(Funcionario *funcionarios){
 
 	printf("Nome do funcionário: ");
 	fgets(funcionarios[codigo].nome, 100, stdin);
+	for(int i = 0; funcionarios->nome[i] != '\0'; i++){
+		funcionarios->nome[i] = toupper(funcionarios->nome[i]);
+	}
 	fflush(stdin);
 	
 	printf("Cargo do funcionário: ");
 	fgets(funcionarios[codigo].cargo, 50, stdin);
+	for(int l = 0; funcionarios->cargo[l] != '\0'; l++){
+		funcionarios->cargo[l] = toupper(funcionarios->cargo[l]);
+	}
 	fflush(stdin);
 	
 	printf("Salário do funcionário: ");
