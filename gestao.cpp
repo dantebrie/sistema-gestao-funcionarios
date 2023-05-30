@@ -226,18 +226,44 @@ void listarFuncionarios(Funcionario *funcionarios){
 }
 
 void listarFuncionariosCargo(Funcionario *funcionarios){ //Tem que consertar isso aqui
-	
-	for(int i = 0; i < codigo; i++){
+	/*	for(int i = 0; i < codigo; i++){
 		printf("%d - %s\n", i + 1, funcionarios[i].nome);
 	}
-	printf("\n");
+	printf("\n");*/
+	bool cargosIguais = false;
+	
 	for(int i = 0; i < codigo; i++){
-		printf("%d - %s\n", i + 1, funcionarios[i].cargo);
-	}
+		if(strcmp(funcionarios[i].cargo, funcionarios[i + 1].cargo) == 0){
+			cargosIguais = true;
+		}
+	}	
+		
+		if(cargosIguais == true){
+			printf("Tem cargos iguais na lista!");
+		}
 }
 
 void demissao(Funcionario *funcionarios){
+	char demitido[100];
+	bool certo = false;
+	
 	printf("Testando demissão");
+	
+	printf("\nDigite o nome do funcionário que pretende realizar a demissão: ");
+	fgets(demitido, 100, stdin);
+	
+	for(int i = 0; i < codigo; i++){
+		if(strcmp(demitido, funcionarios[i].nome) == 0){
+			certo = true;
+		}
+	}
+	
+	if(certo == true){
+		printf("Tem funcionário com esse nome aqui!");
+	}else{
+		printf("Não tem funcionário com esse nome aqui");
+	}
+
 }
 
 void folhaPagamento(){
