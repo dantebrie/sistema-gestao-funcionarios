@@ -239,7 +239,7 @@ void listarFuncionariosCargo(Funcionario *funcionarios){ //Tem que consertar iss
 	}
 }
 
-void demissao(){
+void demissao(Funcionario *funcionarios){
 	printf("Testando demissão");
 }
 
