@@ -13,6 +13,7 @@ struct Funcionario {
 	int cpf;
 	struct Funcionario *prox;
 };
+
 typedef struct Funcionario funcionarios;
 
 int menu(Funcionario *funcionarios);
@@ -24,7 +25,7 @@ void cadastroFuncionario(Funcionario *funcionarios);
 void contas(Funcionario *funcionarios);
 void opcoes(int op, Funcionario *funcionarios);
 
-int codigo = 0, retorno = -1, numeroLetras;
+int codigo = 0, retorno = -1, numeroLetrasNome, numeroLetrasCargo;
 
 int i = 0, escolha, voltar = 0;
 bool caracter;
@@ -169,9 +170,11 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	    printf("Informe o nome do funcionario: ");
 	    fflush(stdout); // Limpa o buffer de saída antes de ler a entrada
 	    fgets(funcionarios[codigo].nome, 100, stdin);
-	
+		
+		numeroLetrasNome = strlen(funcionarios[codigo].nome);
+
 	    // Verifica cada caractere do nome
-	    for (int i = 0; funcionarios[codigo].nome[i] != '\0'; i++) {
+	    for (int i = 0; i < numeroLetrasNome - 1; i++) {
 	        if (!isalpha(funcionarios[codigo].nome[i]) && funcionarios[codigo].nome[i] != ' ') {
 	            caracter = true;
 	            break;
@@ -195,14 +198,13 @@ void cadastroFuncionario(Funcionario *funcionarios){
         fflush(stdout); // Limpa o buffer de saída antes de ler a entrada
         fgets(funcionarios[codigo].cargo, 50, stdin);
         
-		numeroLetras = strlen(funcionarios[codigo].cargo);
-		
-		for(int contador = 0; contador < numeroLetras; contador++){
+		printf("\nNúmero letras: %d\n", numeroLetrasCargo);
+		for(int contador = 0; contador < numeroLetrasCargo; contador++){
 			funcionarios[codigo].cargo[contador] = toupper(funcionarios[codigo].cargo[contador]);
 		}
 		
         // Verifica cada caractere do nome
-        for (int i = 0; funcionarios[codigo].cargo[i] != '\0'; i++) {
+        for (int i = 0; i < numeroLetrasCargo - 1; i++) {
             if (!isalpha(funcionarios[codigo].cargo[i] ) && funcionarios[codigo].cargo[i]  != ' ') {
                 caracter = true;
                 break;
@@ -285,6 +287,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
     scanf("%f", &funcionarios[codigo].salarioDia, 100, stdin);
 
 	codigo++;
+	
 	printf("\nCadastro concluído!");
 }
 
@@ -354,7 +357,7 @@ void demissao(Funcionario *funcionarios){
 
 }
 
-void contas(Funcionario *funcionarios){ //tá dando problema com as variáveis
+void contas(Funcionario *funcionarios){ 
 
 	    salarioBruto = funcionarios[codigo].diasTrabalhados * funcionarios->salarioDia;
 	    if (salarioBruto <= 1900.0) {
