@@ -2,24 +2,46 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <ctype.h>
+#include <string.h>
+#include <math.h>
 
-typedef struct {
+
+struct Funcionario {
 	char nome[100]; 
 	char cargo[50];
-	float salario;
+	int diasTrabalhados;
+	float salarioDia;
 	int idade;
-	int cpf;
-}Funcionario;
+	char cpf[12];
+	float salarioBruto, salarioLiquido;
+	float valeTransporte, impostoRenda;
+	
+	struct Funcionario *prox;
+};
+
+typedef struct Funcionario funcionarios;
 
 int menu(Funcionario *funcionarios);
 void cabecalho();
 void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
-void listarFuncionariosCargo(Funcionario *funcionarios), demissao(Funcionario *funcionarios), folhaPagamento(), reciboSalario();
+void listarFuncionariosCargo(Funcionario *funcionarios), demissao(Funcionario *funcionarios);
+void folhaPagamento(Funcionario *funcionarios), reciboSalario(Funcionario *funcionarios);
 void cadastroFuncionario(Funcionario *funcionarios);
-//void cadastroCargo(Funcionario *funcionarios);
+void contas(Funcionario *funcionarios);
 void opcoes(int op, Funcionario *funcionarios);
 
-int codigo = 0, retorno = -1;
+int codigo = 0, retorno = -1, numeroLetrasNome, numeroLetrasCargo;
+char Funcionariocpf[10];
+int i = 0, escolha, voltar = 0;
+bool caracter;
+char cpf[12];
+float valeTransporte, impostoRenda;
+float salarioBruto, salarioLiquido;
+float planoSaude = 600.0;
+
+char listaDeCargos[15][20] = {
+        "PRESIDENTE", "CEO", "GERENTE", "ASSISTENTE", "DIRETOR", "TECNICO", "ESTAGIARIO", "SECRETARIA", "COODERNADOR", "ANALISTA", "ASSESSOR"
+};
 
 int main(){
 
@@ -49,8 +71,7 @@ int menu(Funcionario *funcionarios){
 	
 	cabecalho();
 	
-	printf("1 - Cadastrar funcionário\n"); //Não tô entendendo essa parte, tá escrito que tem que cadastrar o funcionário e o cargo mas como fazer isso? É de vez?
-	//printf("2 - Cadastrar cargo\n");
+	printf("1 - Cadastrar funcionário\n"); 
 	printf("2 - Listar cargos\n");
 	printf("3 - Listar funcionários\n");
 	printf("4 - Listar funcionários por cargo\n");
@@ -87,13 +108,6 @@ void opcoes(int op, Funcionario *funcionarios){
 			cadastroFuncionario(funcionarios);
 			break;
 			
-		/*case 2: 
-			printf("\n---------------------------------------------\n");
-			printf("\t    Cadastrar cargo\n");
-			printf("---------------------------------------------\n");		
-			cadastroCargo(funcionarios);
-			break;*/
-			
 		case 2: 
 			printf("\n---------------------------------------------\n");
 			printf("\t        Listar cargos\n");
@@ -126,14 +140,14 @@ void opcoes(int op, Funcionario *funcionarios){
 			printf("\n---------------------------------------------\n");
 			printf("\t   Gerar folha de pagamento\n");
 			printf("---------------------------------------------\n");
-			//folhaPagamento();
+			folhaPagamento(funcionarios);
 			break;
 			
 		case 7: 
 			printf("\n---------------------------------------------\n");
 			printf("\t    Gerar recibo de salário\n");
 			printf("---------------------------------------------\n");
-			//reciboSalario();
+			reciboSalario(funcionarios);
 			break;
 			
 		case 0:
@@ -143,25 +157,72 @@ void opcoes(int op, Funcionario *funcionarios){
 			
 		default:
 			printf("\nERRO! Número incorreto!\n");
-			printf("Só é possível digitar numéros de 0 a 7!");
+			printf("Só é possível digitar numeros de 0 a 7!");
 			printf("Tente novamente!");
 			break;
 		}	
 }
 
 void cadastroFuncionario(Funcionario *funcionarios){
-
-	printf("Nome do funcionário: ");
+	 
+     
+/*	printf("Nome do funcionário: ");
 	fgets(funcionarios[codigo].nome, 100, stdin);
 	
-	fflush(stdin);
+	fflush(stdin);*/
 	
-	printf("Cargo do funcionário: ");
+	do {
+	    caracter = false;
+	
+	    printf("Informe o nome do funcionario: ");
+	    fflush(stdout); // Limpa o buffer de saída antes de ler a entrada
+	    fgets(funcionarios[codigo].nome, 100, stdin);
+		
+		numeroLetrasNome = strlen(funcionarios[codigo].nome);
+
+	    // Verifica cada caractere do nome
+	    for (int i = 0; i < numeroLetrasNome - 1; i++) {
+	        if (!isalpha(funcionarios[codigo].nome[i]) && funcionarios[codigo].nome[i] != ' ') {
+	            caracter = true;
+	            break;
+	        } 
+	    }
+	    if (caracter) {
+	            printf("\nO nome deve conter apenas letras. Tente novamente.\n\n");
+	        }
+	    } while (caracter);
+	    
+	    
+	/*printf("Cargo do funcionário: ");
 	fgets(funcionarios[codigo].cargo, 50, stdin);
 	
-	fflush(stdin);
+	fflush(stdin);*/
 	
-	printf("Salário do funcionário: ");
+	do {
+        caracter = false;
+
+        printf("Informe o cargo do funcionario: ");
+        fflush(stdout); // Limpa o buffer de saída antes de ler a entrada
+        fgets(funcionarios[codigo].cargo, 50, stdin);
+        
+		printf("\nNúmero letras: %d\n", numeroLetrasCargo);
+		for(int contador = 0; contador < numeroLetrasCargo; contador++){
+			funcionarios[codigo].cargo[contador] = toupper(funcionarios[codigo].cargo[contador]);
+		}
+		
+        // Verifica cada caractere do nome
+        for (int i = 0; i < numeroLetrasCargo - 1; i++) {
+            if (!isalpha(funcionarios[codigo].cargo[i] ) && funcionarios[codigo].cargo[i]  != ' ') {
+                caracter = true;
+                break;
+            } 
+        }
+	    if (caracter) {
+	            printf("\nO cargo deve conter apenas letras. Tente novamente.\n\n");
+	        }
+	    } while (caracter);
+	
+	/*printf("Salário do funcionário: ");
 	retorno = scanf("%f", &funcionarios[codigo].salario);
 	fflush(stdin);
 	
@@ -170,7 +231,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 		printf("\n\nSalário do funcionário:: ");
 		retorno = scanf("%d", &funcionarios[codigo].salario);
 		fflush(stdin);
-	}
+	}*/
 	
 	retorno = -1;
 	
@@ -185,7 +246,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 		fflush(stdin);
 	}
 	
-	retorno = -1;
+	/*retorno = -1;
 	
 	printf("CPF: ");
 	retorno = scanf("%d", &funcionarios[codigo].cpf);
@@ -196,10 +257,45 @@ void cadastroFuncionario(Funcionario *funcionarios){
 		printf("\n\nCPF: ");
 		retorno = scanf("%d", &funcionarios[codigo].cpf);
 		fflush(stdin);
-	}
+	}*/
+	while (1) {
+	        printf("Informe o CPF (11 dígitos, sem pontos ou traços): ");
+	        fflush(stdout);
+	        if (scanf("%11s", &funcionarios[codigo].cpf) != 1) {
+	            printf("Entrada inválida! Digite apenas números.\n\n");
+	            while (getchar() != '\n'); // Limpa o buffer do teclado
+	            break; // Reinicia o loop
+	        }
+	
+	        int count = 0;
+	    
+	        for (int i = 0; funcionarios[codigo].cpf[i] != '\0'; i++) {
+	            if (!isdigit(funcionarios[codigo].cpf[i])) {
+	                printf("Entrada inválida! Digite apenas números.\n\n");
+	                count = -1; // Sinaliza que a entrada é inválida
+	                break; // Sai do loop for
+	            }
+	            count++;
+	        }
+			
+			
+	        if (count == 11) {
+	        	
+                 break;// Sai do loop while
+	        } else {
+	           printf("CPF inválido! Digite exatamente 11 dígitos.\n");
+        	}
+		}
+		
+	printf("Informe o numero de dias trabalhados: ");
+	scanf("%d", &funcionarios[codigo].diasTrabalhados, 100, stdin);
+
+    printf("Informe o salario por dia: ");
+    scanf("%f", &funcionarios[codigo].salarioDia, 100, stdin);
 
 	codigo++;
-	printf("\nCadastro concluído!");
+	
+	printf("\nCadastro concluído!\n");
 }
 
 /*void cadastroCargo(Funcionario *funcionarios){ //A parte do contador se torna um problema se separar assim
@@ -226,10 +322,12 @@ void listarFuncionarios(Funcionario *funcionarios){
 }
 
 void listarFuncionariosCargo(Funcionario *funcionarios){ //Tem que consertar isso aqui
-	/*	for(int i = 0; i < codigo; i++){
+	
+/*	for(int i = 0; i < codigo; i++){
 		printf("%d - %s\n", i + 1, funcionarios[i].nome);
 	}
 	printf("\n");*/
+	
 	bool cargosIguais = false;
 	
 	for(int i = 0; i < codigo; i++){
@@ -266,12 +364,63 @@ void demissao(Funcionario *funcionarios){
 
 }
 
-void folhaPagamento(){
-	printf("Testando folha de pagamento");	
+void contas(Funcionario *funcionarios){ 
+
+	    salarioBruto = funcionarios->diasTrabalhados * funcionarios->salarioDia;
+	    if (funcionarios[codigo].salarioBruto <= 1900.0) {
+	        funcionarios[codigo].impostoRenda = 0.0;
+	    } else if (funcionarios[codigo].salarioBruto <= 2800.0) {
+	        funcionarios[codigo].impostoRenda = salarioBruto * 0.075;
+	    } else if (funcionarios[codigo].salarioBruto <= 3700.0) {
+	        funcionarios[codigo].impostoRenda = salarioBruto * 0.15;
+		} else if (funcionarios[codigo].salarioBruto <= 4600.0) {
+	        funcionarios[codigo].impostoRenda = salarioBruto * 0.225;
+	    } else if (funcionarios[codigo].salarioBruto > 4601.0) {
+	        funcionarios[codigo].impostoRenda = salarioBruto * 0.275;
+	    }
+	    
+	    if (funcionarios[codigo].salarioBruto <= 1900.0) {
+	        funcionarios[codigo].valeTransporte = 0.06;
+	    } else if (funcionarios[codigo].salarioBruto <= 2800.0) {
+	        funcionarios[codigo].valeTransporte = salarioBruto * 0.06;
+	    } else if (funcionarios[codigo].salarioBruto <= 3700.0) {
+	        funcionarios[codigo].valeTransporte = salarioBruto * 0.06;
+		} else if (funcionarios[codigo].salarioBruto <= 4600.0) {
+	        funcionarios[codigo].valeTransporte = salarioBruto * 0.06;
+	    } else if (funcionarios[codigo].salarioBruto > 4601.0) {
+	        funcionarios[codigo].valeTransporte = salarioBruto * 0.06;
+	    }
+	
+	    // Calculo do salário líquido com descontos
+	    salarioLiquido = salarioBruto - valeTransporte - planoSaude - impostoRenda;
+}
+void folhaPagamento(Funcionario *funcionarios){
+	contas(funcionarios);
+	
+	printf("\nFolha de Pagamento\n");
+    printf("Nome: %s\n", funcionarios->nome);
+    printf("Cargo: %s\n", funcionarios->cargo);
+    printf("CPF: %s\n", funcionarios->cpf);
+    printf("Dias Trabalhados: %d\n", funcionarios->diasTrabalhados);
+    printf("Salário por Dia: %.2f\n", funcionarios->salarioDia);
+	printf("Salário Bruto: %.2f\n", salarioBruto);
+    printf("Descontos:\n");
+    printf(" - Vale Transporte: %.2f\n", valeTransporte);
+    printf(" - Plano de Saúde: %.2f\n", planoSaude);
+    printf(" - Imposto de Renda: %.2f\n", impostoRenda);
+    printf("Salário Líquido: %.2f\n", salarioLiquido);
 }
 
-void reciboSalario(){
-	printf("Testando recibo pagamento");
+void reciboSalario(Funcionario *funcionarios){
+		contas(funcionarios);
+		printf("\nRecibo de SalÃ¡rio\n");
+	    printf("Nome: %s", funcionarios->nome);
+	    printf("Cargo: %s\n", funcionarios->cargo);
+	    printf("CPF: %s\n", funcionarios->cpf);
+	    printf("Salário Bruto: %.2f\n", salarioBruto);
+	    printf("Descontos:\n");
+	    printf(" - Vale Transporte: %.2f\n", valeTransporte);
+	    printf(" - Plano de Saúde: %.2f\n", planoSaude);
+	    printf(" - Imposto de Renda: %.2f\n", impostoRenda);
+	    printf("Salário Líquido: %.2f\n\n", salarioLiquido);
 }
-
-
