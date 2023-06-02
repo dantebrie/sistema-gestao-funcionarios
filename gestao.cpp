@@ -395,15 +395,16 @@ void contas(Funcionario *funcionarios){
 	    salarioLiquido = salarioBruto - valeTransporte - planoSaude - impostoRenda;
 }
 void folhaPagamento(Funcionario *funcionarios){
-	contas(funcionarios);
+    contas(funcionarios);
 	
-	printf("\nFolha de Pagamento\n");
+    printf("\nFolha de Pagamento\n");
     printf("Nome: %s\n", funcionarios->nome);
     printf("Cargo: %s\n", funcionarios->cargo);
+    printf("Idade: %d\n", funcionarios->idade);
     printf("CPF: %s\n", funcionarios->cpf);
     printf("Dias Trabalhados: %d\n", funcionarios->diasTrabalhados);
     printf("Salário por Dia: %.2f\n", funcionarios->salarioDia);
-	printf("Salário Bruto: %.2f\n", salarioBruto);
+    printf("Salário Bruto: %.2f\n", salarioBruto);
     printf("Descontos:\n");
     printf(" - Vale Transporte: %.2f\n", valeTransporte);
     printf(" - Plano de Saúde: %.2f\n", planoSaude);
@@ -412,10 +413,11 @@ void folhaPagamento(Funcionario *funcionarios){
 }
 
 void reciboSalario(Funcionario *funcionarios){
-		contas(funcionarios);
-		printf("\nRecibo de SalÃ¡rio\n");
+	    contas(funcionarios);
+	    printf("\nRecibo de SalÃ¡rio\n");
 	    printf("Nome: %s", funcionarios->nome);
 	    printf("Cargo: %s\n", funcionarios->cargo);
+	    printf("Idade: %d\n", funcionarios->idade);
 	    printf("CPF: %s\n", funcionarios->cpf);
 	    printf("Salário Bruto: %.2f\n", salarioBruto);
 	    printf("Descontos:\n");
