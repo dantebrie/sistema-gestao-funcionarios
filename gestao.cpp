@@ -32,7 +32,7 @@ void opcoes(int op, Funcionario *funcionarios);
 
 int codigo = 0, retorno = -1, numeroLetrasNome, numeroLetrasCargo;
 
-int i = 0, escolha, voltar = 0, busca1, busca2;
+int i = 0, escolha, voltar = 0, busca1, busca2, cadastro = 0;
 bool caracter;
 float planoSaude = 600.0;
 
@@ -87,7 +87,6 @@ int menu(Funcionario *funcionarios){
 	system("pause");
 	
 	printf("\n---------------------------------------------\n");
-
 	
 	return opcao;
 }
@@ -102,59 +101,84 @@ void opcoes(int op, Funcionario *funcionarios){
 			printf("\t    Cadastrar funcionário\n");
 			printf("---------------------------------------------\n");		
 			cadastroFuncionario(funcionarios);
+			cadastro++;
 			break;
 			
 		case 2: 
 			printf("\n---------------------------------------------\n");
 			printf("\t        Listar cargos\n");
 			printf("---------------------------------------------\n");
-			listarCargos(funcionarios);
+			if(cadastro < 1){
+				printf("Não há cargos cadastrados!\nCadastre-os para listar os cargos!\n\n");
+			}else{	
+				listarCargos(funcionarios);
+			}
 			break;
 			
 		case 3:
 			printf("\n---------------------------------------------\n");
 			printf("\t      Listar funcionários\n");
 			printf("---------------------------------------------\n");
-			listarFuncionarios(funcionarios);
+			if(cadastro < 1){
+				printf("Não há funcionários cadastrados!\nCadastre-os para listar os funcionários! \n\n");
+			}else{
+				listarFuncionarios(funcionarios);	
+			}
 			break;
 			
 		case 4: 
 			printf("\n---------------------------------------------\n");
 			printf("\tListar funcionários por cargo\n");
 			printf("---------------------------------------------\n");
-			listarFuncionariosCargo(funcionarios);
+			if(cadastro < 1){
+				printf("Não há funcionários cadastrados!\nCadastre-os para listar! \n\n");
+			}else{
+				listarFuncionariosCargo(funcionarios);
+			}
 			break;
 			
 		case 5: 
 			printf("\n---------------------------------------------\n");
 			printf("\t    Demissão de funcionário\n");
 			printf("---------------------------------------------\n");
-			demissao(funcionarios);
+			if(cadastro < 1){
+				printf("Não há funcionários cadastrados!\n\n");
+			}else{
+				demissao(funcionarios);
+			}
 			break;
 			
 		case 6: 
 			printf("\n---------------------------------------------\n");
 			printf("\t   Gerar folha de pagamento\n");
 			printf("---------------------------------------------\n");
-			folhaPagamento(funcionarios);
+			if(cadastro < 1){
+				printf("Não há funcionários cadastrados! \nCadastre-os para gerar a folha de pagamento!\n\n");
+			}else{
+				folhaPagamento(funcionarios);
+			}
 			break;
 			
 		case 7: 
 			printf("\n---------------------------------------------\n");
 			printf("\t    Gerar recibo de salário\n");
 			printf("---------------------------------------------\n");
-			reciboSalario(funcionarios);
+			if(cadastro < 1){
+				printf("Não há funcionários cadastrados!\nCadastre-os para gerar o recibo de salário!\n\n");
+			}else{
+				reciboSalario(funcionarios);
+			}
 			break;
 			
 		case 0:
-			printf("\n\nEncerrando sistema...");
+			printf("\n\nEncerrando sistema...\n");
 			abort();
 			break;
 			
 		default:
-			printf("\nERRO! Número incorreto!\n");
-			printf("Só é possível digitar numéros de 0 a 7!");
-			printf("Tente novamente!");
+			printf("\nERRO!\nNúmero incorreto!");
+			printf("\nSó é possível digitar numéros de 0 a 7!");
+			printf("\nTente novamente!\n\n");
 			break;
 		}	
 }
@@ -220,7 +244,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 		fflush(stdin);
 	}
 	
-while (1) {
+	while (1) {
 	        printf("Informe o CPF (11 dígitos, sem pontos ou traços): ");
 	        fflush(stdout);
 	        if (scanf("%11s", &funcionarios[codigo].cpf) != 1) {
@@ -246,44 +270,44 @@ while (1) {
 	        } else {
 	           printf("CPF inválido! Digite exatamente 11 dígitos.\n");
         	}
-		}
+	}
 		
-	printf("Informe o numero de dias trabalhados: ");
+	printf("Informe o número de dias trabalhados: ");
 	scanf("%d", &funcionarios[codigo].diasTrabalhados, 100, stdin);
 
-    printf("Informe o salario por dia: ");
-    scanf("%f", &funcionarios[codigo].salarioDia, 100, stdin);
+    	printf("Informe o salario por dia: ");
+    	scanf("%f", &funcionarios[codigo].salarioDia, 100, stdin);
 	
 	printf("\nCadastro concluído!");
 	
 	funcionarios[codigo].salarioBruto = funcionarios[codigo].diasTrabalhados * funcionarios[codigo].salarioDia;
 	    
-    if (funcionarios[codigo].salarioBruto <= 1900.0) {
-        funcionarios[codigo].impostoRenda = 0.0;
-    } else if (funcionarios[codigo].salarioBruto <= 2800.0) {
-        funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.075;
-    } else if (funcionarios[codigo].salarioBruto <= 3700.0) {
-        funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.15;
+    	if (funcionarios[codigo].salarioBruto <= 1900.0) {
+        	funcionarios[codigo].impostoRenda = 0.0;
+    	} else if (funcionarios[codigo].salarioBruto <= 2800.0) {
+        	funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.075;
+    	} else if (funcionarios[codigo].salarioBruto <= 3700.0) {
+        	funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.15;
 	} else if (funcionarios[codigo].salarioBruto <= 4600.0) {
-        funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.225;
-    } else if (funcionarios[codigo].salarioBruto > 4601.0) {
-        funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.275;
-    }
+        	funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.225;
+    	} else if (funcionarios[codigo].salarioBruto > 4601.0) {
+        	funcionarios[codigo].impostoRenda = funcionarios[codigo].salarioBruto * 0.275;
+    	}
     
-    if (funcionarios[codigo].salarioBruto <= 1900.0) {
-        funcionarios[codigo].valeTransporte = 0.06;
-    } else if (funcionarios[codigo].salarioBruto <= 2800.0) {
-        funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
-    } else if (funcionarios[codigo].salarioBruto <= 3700.0) {
-        funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
+    	if (funcionarios[codigo].salarioBruto <= 1900.0) {
+        	funcionarios[codigo].valeTransporte = 0.06;
+    	} else if (funcionarios[codigo].salarioBruto <= 2800.0) {
+        	funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
+    	} else if (funcionarios[codigo].salarioBruto <= 3700.0) {
+        	funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
 	} else if (funcionarios[codigo].salarioBruto <= 4600.0) {
-        funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
-    } else if (funcionarios[codigo].salarioBruto > 4601.0) {
-        funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
-    }
+        	funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
+    	} else if (funcionarios[codigo].salarioBruto > 4601.0) {
+        	funcionarios[codigo].valeTransporte = funcionarios[codigo].salarioBruto * 0.06;
+    	}
 
-    // Cálculo do salário líquido com descontos
-    funcionarios[codigo].salarioLiquido = funcionarios[codigo].salarioBruto - funcionarios[codigo].valeTransporte - planoSaude - funcionarios[codigo].impostoRenda;
+    	// Cálculo do salário líquido com descontos
+    	funcionarios[codigo].salarioLiquido = funcionarios[codigo].salarioBruto - funcionarios[codigo].valeTransporte - planoSaude - funcionarios[codigo].impostoRenda;
 	codigo++;
 }
 
@@ -331,9 +355,9 @@ void demissao(Funcionario *funcionarios){
 	}
 	
 	if(certo == true){
-		printf("Tem funcionário com esse nome aqui!");
+		printf("\nTem funcionário com esse nome aqui!\n");
 	}else{
-		printf("Não tem funcionário com esse nome aqui");
+		printf("\nNão tem funcionário com esse nome aqui\n");
 	}
 }
 
@@ -363,6 +387,7 @@ void reciboSalario(Funcionario *funcionarios){
 	printf("Digite o código do funcionário: ");
 	scanf("%d", &busca2);
 	fflush(stdin);
+	
 	printf(".............................................\n");
     printf("Nome: %s", funcionarios[busca2].nome);
     printf("Cargo: %s", funcionarios[busca2].cargo);
