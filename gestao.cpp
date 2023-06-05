@@ -274,7 +274,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	do
 	{
 		printf("Informe o CPF (11 dígitos, sem pontos ou traços): ");
-		scanf("%c", &funcionarios[codigo].cpf);
+		scanf("%s", &funcionarios[codigo].cpf);
 		fflush(stdin);
 		
 		
@@ -389,24 +389,17 @@ void listarCargos(Funcionario *funcionarios){
 
 void listarFuncionarios(Funcionario *funcionarios){
 	
-	for(int i = 0; i < codigo; i++){
+	for(int i = 0; i < codigo; i++){ 
 		printf("%d - %s\n", i, funcionarios[i].nome);
 	}
 }
 
-void listarFuncionariosCargo(Funcionario *funcionarios){ 
+void listarFuncionariosCargo(Funcionario *funcionarios){
 
-	bool cargosIguais = false;
-	
-	for(int i = 0; i < codigo; i++){
-		if(strcmp(funcionarios[i].cargo, funcionarios[i + 1].cargo) == 0){
-			cargosIguais = true;
-		}
-	}	
-	if(cargosIguais == true){
-		printf("Tem cargos iguais na lista!");
-	}
-}
+    for(int i = 0; i < codigo; i++){
+         printf("%s - %s\n", funcionarios[i].nome,funcionarios[i].cargo);
+        } 
+} 
 
 void demissao(Funcionario *funcionarios){
 
@@ -441,11 +434,11 @@ void demissao(Funcionario *funcionarios){
 
 void folhaPagamento(Funcionario *funcionarios){
 	
-	printf("Digite o código do funcionário: ");
-	scanf("%d", &busca1);
-	fflush(stdin);
+    printf("Digite o código do funcionário: ");
+    scanf("%d", &busca1);
+    fflush(stdin);
 	
-	printf("\nFolha de Pagamento\n");
+    printf("\nFolha de Pagamento\n");
     printf("Nome: %s\n", funcionarios[busca1].nome);
     printf("Cargo: %s\n", funcionarios[busca1].cargo);
     printf("CPF: %s\n", funcionarios[busca1].cpf);
@@ -462,17 +455,17 @@ void folhaPagamento(Funcionario *funcionarios){
 
 void reciboSalario(Funcionario *funcionarios){
 		
-	printf("Digite o código do funcionário: ");
-	scanf("%d", &busca2);
-	fflush(stdin);
-	printf(".............................................\n");
+    printf("Digite o código do funcionário: ");
+    scanf("%d", &busca2);
+    fflush(stdin);
+    printf(".............................................\n");
     printf("Nome: %s\n", funcionarios[busca2].nome);
     printf("Cargo: %s\n", funcionarios[busca2].cargo);
     printf("CPF: %s\n", funcionarios[busca2].cpf);
     printf("Salário Bruto: %.2f\n", funcionarios[busca2].salarioBruto);
     printf(".............................................\n");
     printf("Descontos:\n");
-	printf(".............................................\n");
+    printf(".............................................\n");
     printf(" - Vale Transporte: %.2f\n", funcionarios[busca2].valeTransporte);
     printf(" - Plano de Saúde: %.2f\n", planoSaude);
     printf(" - Imposto de Renda: %.2f\n", funcionarios[busca2].impostoRenda);
@@ -481,7 +474,7 @@ void reciboSalario(Funcionario *funcionarios){
     printf("---------------------------------------------\n");
 }
 void cabecalhoCadastro(){
-	printf("\n---------------------------------------------\n");
-	printf("\t    Cadastrar funcionário\n");
-	printf("---------------------------------------------\n");		
+    printf("\n---------------------------------------------\n");
+    printf("\t    Cadastrar funcionário\n");
+    printf("---------------------------------------------\n");		
 }
