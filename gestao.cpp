@@ -31,7 +31,7 @@ void cadastroFuncionario(Funcionario *funcionarios), cabecalhoCadastro();
 void opcoes(int op, Funcionario *funcionarios);
 
 
-int codigo = 0, retorno = -1, numeroLetrasNome, numeroLetrasCargo, contagem = 0, id_existe;
+int codigo = 0, retorno = -1, numeroLetrasNome, numeroLetrasCargo, contagem = 0;
 int i = 0, escolha, voltar = 0, busca1, busca2;
 bool valido;
 float planoSaude = 600.0;
