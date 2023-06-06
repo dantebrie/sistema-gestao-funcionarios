@@ -227,7 +227,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 		}
 		
 		for (int i = 0; i < numeroLetrasNome; i++){
-			if (isalpha(funcionarios[codigo].nome[i]) && isspace(funcionarios[codigo].nome[i])){
+			if (isalpha(funcionarios[codigo].nome[i]) || isspace(funcionarios[codigo].nome[i])){
 				totalNome++;
 			}
 		
