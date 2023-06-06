@@ -203,29 +203,39 @@ void opcoes(int op, Funcionario *funcionarios){
 
 void cadastroFuncionario(Funcionario *funcionarios){
 
-	valido = false;
-	
-	do
-	{
+	bool soNumero = false;
+	int qtdCpf, cont = 0, totalNome = 0;
+	bool soLetra;
+
+	soLetra = false;
+	do{
+		soLetra = false;
+
 		printf("Informe o nome do funcionario: ");
 		gets(funcionarios[codigo].nome);
 		fflush(stdin);
+
 		numeroLetrasNome = strlen(funcionarios[codigo].nome);
-		for (int i = 0; i < funcionarios->nome[i]; i++)
-		{
-			if (isalpha(funcionarios->nome[i]))
-			{
-				valido = true;
+		totalNome = 0;
+
+		for (int i = 0; i < numeroLetrasNome; i++){
+			funcionarios[codigo].nome[i] = toupper(funcionarios[codigo].nome[i]);
+		}
+		
+		for (int i = 0; i < funcionarios[codigo].nome[i]; i++){
+			if (isalpha(funcionarios[codigo].nome[i])){
+				totalNome++;
 			}
 			
 		}
+		if(totalNome == numeroLetrasNome){
+			soLetra = true;
+		}
 
-		if (valido == true)
-		{
+		if (soLetra == true){
 			break;
 		}
-		else
-		{
+		else{
 			printf("\nFormato de nome inválido! Informe um nome válido e tente novamente.\n");
 		}
 
@@ -247,7 +257,6 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	    printf("\nInforme o cargo do funcionario: ");
 	    gets(funcionarios[codigo].cargo);
 	    fflush(stdin); 
-	
 		numeroLetrasCargo = strlen(funcionarios[codigo].cargo);        
 	
 		for(int contador = 0; contador < numeroLetrasCargo; contador++){
@@ -273,38 +282,34 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	cabecalhoCadastro();
 
 	valido = false;
-	bool soNumero = false;
-	int qtdCpf;
-	do
-	{
+	
+	do{
+		valido = false;
+		soNumero = false;
 		printf("Informe o CPF (11 dígitos, sem pontos ou traços): ");
 		scanf("%s", &funcionarios[codigo].cpf);
 		fflush(stdin);
 		
-		
-		for (int i = 0; i < funcionarios[codigo].cpf[i]; i++)
-		{
-			if (isdigit(funcionarios[codigo].cpf[i]))
-			{
-				soNumero = true;
+		cont = 0;
+		for (int i = 0; i < funcionarios[codigo].cpf[i]; i++){
+			if (isdigit(funcionarios[codigo].cpf[i])){
+				cont++;
 			}
 		}
 
 		qtdCpf = strlen(funcionarios[codigo].cpf);
-		if (soNumero == true)
-		{
-			if (qtdCpf == 11)
-			{
-				valido = true;
-			}
+		
+		if(cont == 11){
+			soNumero = true;
+		}
+		
+		if (qtdCpf == 11){
+			valido = true;
 		}
 	
-		if (valido == true)
-		{
+		if (valido == true && soNumero == true){
 			break;
-		}
-		else
-		{
+		}else{
 			printf("\n\nFormato de CPF inválido! Informe um CPF válido.\n");
 		}
 		
@@ -425,12 +430,9 @@ void demissao(Funcionario *funcionarios){
 
 	valido = false;
 
-	for (int i = 0; i < codigo; i++)
-	{
-		if (funcionarios->id == funcionarios[i].posi_id)
-		{
-			for (int i = funcionarios->id; i < codigo; i++)
-			{
+	for (int i = 0; i < codigo; i++){
+		if (funcionarios->id == funcionarios[i].posi_id){
+			for (int i = funcionarios->id; i < codigo; i++){
 				funcionarios[i].id = funcionarios[i + 1].id - 1;
 				strcpy(funcionarios[i].nome, funcionarios[i + 1].nome);
 				valido = true;
@@ -443,8 +445,7 @@ void demissao(Funcionario *funcionarios){
 		}
 	}
 	
-	if (valido != true)
-	{
+	if (valido != true){
 		printf("\n\nO ID informado não existe! Informe um ID válido.\n");
 	}
 	
