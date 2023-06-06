@@ -423,7 +423,7 @@ void listarFuncionariosCargo(Funcionario *funcionarios){
 			printf("%d - %s\n",i, funcionarios[i].nome);
 		}else{
 			printf("Erro! Não há funcionário cadastrado com esse cargo no momento");
-	
+		}
 	}
 }
 
