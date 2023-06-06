@@ -200,8 +200,6 @@ void opcoes(int op, Funcionario *funcionarios){
 void cadastroFuncionario(Funcionario *funcionarios){
 
 	valido = false;
-	bool soNumero = false;
-	int qtdCpf, cont = 0;
 	
 	do
 	{
@@ -271,36 +269,38 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	cabecalhoCadastro();
 
 	valido = false;
+	bool soNumero = false;
+	int qtdCpf;
 	do
 	{
-		valido = false;
-		soNumero = false;
 		printf("Informe o CPF (11 dígitos, sem pontos ou traços): ");
 		scanf("%s", &funcionarios[codigo].cpf);
 		fflush(stdin);
 		
-		cont = 0;
+		
 		for (int i = 0; i < funcionarios[codigo].cpf[i]; i++)
 		{
 			if (isdigit(funcionarios[codigo].cpf[i]))
 			{
-				cont++;
+				soNumero = true;
 			}
 		}
 
 		qtdCpf = strlen(funcionarios[codigo].cpf);
-		
-		if(cont == 11){
-			soNumero = true;
-		}
-		
-		if (qtdCpf == 11){
-			valido = true;
+		if (soNumero == true)
+		{
+			if (qtdCpf == 11)
+			{
+				valido = true;
+			}
 		}
 	
-		if (valido == true && soNumero == true){
+		if (valido == true)
+		{
 			break;
-		}else{
+		}
+		else
+		{
 			printf("\n\nFormato de CPF inválido! Informe um CPF válido.\n");
 		}
 		
@@ -395,13 +395,24 @@ void listarFuncionarios(Funcionario *funcionarios){
 }
 
 void listarFuncionariosCargo(Funcionario *funcionarios){
-	/*printf("Digite o cargo que deseja pesquisar: ");
-	gets(cargoEscolhido);*/
+	char cargo[20];
+	bool cargoD = false;
+	printf("Funcionario com o cargo: ");
+	scanf("%s", &cargo);
 	
-    for(int i = 0; i < codigo; i++){
-         printf("%s - %s\n", funcionarios[i].nome,funcionarios[i].cargo);
-        } 
-} //"PRESIDENTE", "CEO", "GERENTE", "ASSISTENTE", "DIRETOR", "TECNICO", "ESTAGIARIO", "SECRETARIA", "COORDENADOR", "ANALISTA", "ASSESSOR"
+	for(int i = 0; i < strlen(cargo); i++){
+		cargo[i] = toupper(cargo[i]);
+	}
+	
+	for(int i = 0; i < codigo; i++){
+		if(strcmp(funcionarios[i].cargo, cargo) == 0){
+			cargoD = true;
+			printf("%d - %s\n",i, funcionarios[i].nome);
+		}
+	
+	}
+}
+
 
 void demissao(Funcionario *funcionarios){
 
