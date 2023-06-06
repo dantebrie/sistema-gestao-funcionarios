@@ -103,7 +103,11 @@ void opcoes(int op, Funcionario *funcionarios){
 			printf("\n---------------------------------------------\n");
 			printf("\t    Cadastrar funcionário\n");
 			printf("---------------------------------------------\n");	
-			cadastroFuncionario(funcionarios);
+			if(contagem <= 20){
+				cadastroFuncionario(funcionarios);	
+			}else{
+				printf("\nLimite de cadastro alcançado\n");
+			}
 			break;
 			
 		case 2: 
@@ -435,6 +439,7 @@ void demissao(Funcionario *funcionarios){
 
 			codigo--;
 			printf("\n\nFuncionário demitido com sucesso.\n");
+			contagem--;
 		}
 	}
 	
