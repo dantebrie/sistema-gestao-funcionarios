@@ -226,11 +226,11 @@ void cadastroFuncionario(Funcionario *funcionarios){
 			funcionarios[codigo].nome[i] = toupper(funcionarios[codigo].nome[i]);
 		}
 		
-		for (int i = 0; i < funcionarios[codigo].nome[i]; i++){
-			if (isalpha(funcionarios[codigo].nome[i])){
+		for (int i = 0; i < numeroLetrasNome; i++){
+			if (isalpha(funcionarios[codigo].nome[i]) && isspace(funcionarios[codigo].nome[i])){
 				totalNome++;
 			}
-			
+		
 		}
 		if(totalNome == numeroLetrasNome){
 			soLetra = true;
@@ -314,7 +314,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 		if (valido == true && soNumero == true){
 			break;
 		}else{
-			printf("\n\nFormato de CPF inválido! Informe um CPF válido.\n");
+			printf("\nFormato de CPF inválido! Informe um CPF válido.\n");
 		}
 		
 	} while (1);
@@ -422,8 +422,9 @@ void listarFuncionariosCargo(Funcionario *funcionarios){
 			cargoD = true;
 			printf("%d - %s\n",i, funcionarios[i].nome);
 		}else{
-			printf("Erro! Não há funcionário cadastrado com esse cargo no momento");
+			printf("\nErro! Não há funcionário cadastrado com esse cargo no momento.\n");
 		}
+	
 	}
 }
 
