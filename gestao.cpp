@@ -23,7 +23,7 @@ struct Funcionario {
 typedef struct Funcionario funcionarios;
 
 int menu(Funcionario *funcionarios);
-void cabecalho();
+void cabecalho(), salvarDados(Funcionario *funcionarios), lerDados(Funcionario *funcionarios);
 void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
 void listarFuncionariosCargo(Funcionario *funcionarios), demissao(Funcionario *funcionarios);
 void folhaPagamento(Funcionario *funcionarios), reciboSalario(Funcionario *funcionarios);
@@ -43,17 +43,20 @@ char listaDeCargos[11][20] = {
 int main(){
 
 	setlocale(LC_ALL, "Portuguese");
-	
+
 	int opcao;
 	
 	Funcionario *funcionarios = (Funcionario *) malloc(20*sizeof(Funcionario));
-		
+
 	do{
 		opcao = menu(funcionarios);
 		system("cls");
 		
 	}while(opcao != 0);
+
+	lerDados(funcionarios);
 	free(funcionarios);
+
 	return 0;
 }
 	
@@ -192,6 +195,7 @@ void opcoes(int op, Funcionario *funcionarios){
 			
 		case 0:
 			printf("\n\nEncerrando sistema...\n");
+			salvarDados(funcionarios);
 			abort();
 			break;
 			
@@ -206,7 +210,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	bool soNumero = false;
 	int qtdCpf, cont = 0, totalNome = 0;
 	bool soLetra;
-
+	
 	soLetra = false;
 	do{
 		soLetra = false;
@@ -496,4 +500,45 @@ void cabecalhoCadastro(){
     printf("\n---------------------------------------------\n");
     printf("\t    Cadastrar funcionário\n");
     printf("---------------------------------------------\n");		
+}
+
+void salvarDados(Funcionario *funcionarios){
+	FILE *arq = fopen("dados.txt", "w");
+
+	if(arq == NULL){
+		printf("\nNão foi possível receber os dados no arquivo.\n");
+		return;
+	}
+
+	for (int i = 0; i < codigo; i++)
+	{	
+		fprintf(arq, "Nome: %s\n", funcionarios[i].nome);
+		fprintf(arq, "Cargo: %s\n", funcionarios[i].cargo);
+		fprintf(arq, "CPF: %s\n", funcionarios[i].cpf);
+		fprintf(arq, "Dias trabalhados: %d\n", funcionarios[i].diasTrabalhados);
+		fprintf(arq, "Salário Bruto: %.2f\n", funcionarios[i].salarioBruto);
+		fprintf(arq, "Salário Líquido: %.2f\n\n", funcionarios[i].salarioLiquido);
+	}
+	
+	fclose(arq);
+}
+
+void lerDados(Funcionario *funcionarios){
+	FILE *arq = fopen("dados.txt", "r");
+
+	if(arq == NULL){
+		return;
+	}
+
+	for (int i = 0; i < codigo; i++)
+	{
+		fgets(funcionarios[i].nome, sizeof(funcionarios[i].nome), arq);
+		fgets(funcionarios[i].cargo, sizeof(funcionarios[i].cargo), arq);
+		fgets(funcionarios[i].cpf, sizeof(funcionarios[i].cpf), arq);
+		fscanf(arq, "%d", &funcionarios[i].diasTrabalhados);
+		fscanf(arq, "%f", &funcionarios[i].salarioBruto);
+		fscanf(arq, "%f", &funcionarios[i].salarioLiquido);
+	}
+	
+	fclose(arq);
 }
