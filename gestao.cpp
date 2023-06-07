@@ -17,7 +17,6 @@ struct Funcionario {
 	float salarioLiquido;
 	float valeTransporte;
 	float impostoRenda;
-	struct Funcionario *prox;
 };
 
 typedef struct Funcionario funcionarios;
@@ -209,9 +208,8 @@ void cadastroFuncionario(Funcionario *funcionarios){
 
 	bool soNumero = false;
 	int qtdCpf, cont = 0, totalNome = 0, vazio = 0;
-	bool soLetra;
-	
-	soLetra = false;
+	bool soLetra = false;
+
 	do{
 		soLetra = false;
 
