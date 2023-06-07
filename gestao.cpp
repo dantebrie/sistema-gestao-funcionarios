@@ -208,7 +208,7 @@ void opcoes(int op, Funcionario *funcionarios){
 void cadastroFuncionario(Funcionario *funcionarios){
 
 	bool soNumero = false;
-	int qtdCpf, cont = 0, totalNome = 0;
+	int qtdCpf, cont = 0, totalNome = 0, vazio = 0;
 	bool soLetra;
 	
 	soLetra = false;
@@ -230,11 +230,26 @@ void cadastroFuncionario(Funcionario *funcionarios){
 			if (isalpha(funcionarios[codigo].nome[i]) || isspace(funcionarios[codigo].nome[i])){
 				totalNome++;
 			}
+		}
+		vazio = 0;
+
+		for (int i = 0; i < numeroLetrasNome; i++){
+			if (isspace(funcionarios[codigo].nome[i])){
+				vazio++;
+			}
+		}
 		
+		if (vazio == numeroLetrasNome){
+			strcpy(funcionarios[codigo].nome, "NOME INDISPONÍVEL");
 		}
-		if(totalNome == numeroLetrasNome){
+		
+		
+		for(int i = 0; i < numeroLetrasNome; i++){
+			if(totalNome == numeroLetrasNome || funcionarios[codigo].nome[i] != ' '){
 			soLetra = true;
+			}
 		}
+		
 
 		if (soLetra == true){
 			break;
