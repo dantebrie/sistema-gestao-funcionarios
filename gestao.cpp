@@ -434,11 +434,12 @@ void listarFuncionariosCargo(Funcionario *funcionarios){
 		if(strcmp(funcionarios[i].cargo, cargo) == 0){
 			cargoD = true;
 			printf("%d - %s\n",i, funcionarios[i].nome);
-		}else{
-			printf("\nErro! Não há funcionário cadastrado com esse cargo no momento.\n");
 		}
-	
 	}
+	if(!cargoD){
+		printf("ERRO! Não há funcionário com esse cadastrado no momento!\n");
+	}
+	
 }
 
 
