@@ -22,7 +22,7 @@ struct Funcionario {
 typedef struct Funcionario funcionarios;
 
 int menu(Funcionario *funcionarios);
-void cabecalho(), salvarDados(Funcionario *funcionarios), lerDados(Funcionario *funcionarios);
+void cabecalho(), salvarDados(Funcionario *funcionarios);
 void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
 void listarFuncionariosCargo(Funcionario *funcionarios), demissao(Funcionario *funcionarios);
 void folhaPagamento(Funcionario *funcionarios), reciboSalario(Funcionario *funcionarios);
@@ -53,7 +53,6 @@ int main(){
 		
 	}while(opcao != 0);
 
-	lerDados(funcionarios);
 	free(funcionarios);
 
 	return 0;
@@ -455,6 +454,14 @@ void demissao(Funcionario *funcionarios){
 			for (int i = funcionarios->id; i < codigo; i++){
 				funcionarios[i].id = funcionarios[i + 1].id - 1;
 				strcpy(funcionarios[i].nome, funcionarios[i + 1].nome);
+				strcpy(funcionarios[i].cargo, funcionarios[i + 1].cargo);
+				strcpy(funcionarios[i].cpf, funcionarios[i + 1].cpf);
+				
+				funcionarios[i].diasTrabalhados = funcionarios[i + 1].diasTrabalhados;
+				funcionarios[i].salarioDia = funcionarios[i + 1].salarioDia;
+				funcionarios[i].salarioBruto = funcionarios[i + 1].salarioBruto;
+				funcionarios[i].salarioLiquido = funcionarios[i + 1].salarioLiquido;
+				funcionarios[i].impostoRenda = funcionarios[i + 1].impostoRenda;
 				valido = true;
 				break;
 			}
@@ -519,7 +526,7 @@ void cabecalhoCadastro(){
 }
 
 void salvarDados(Funcionario *funcionarios){
-	FILE *arq = fopen("dados.txt", "w");
+	FILE *arq = fopen("dados.txt", "a");
 
 	if(arq == NULL){
 		printf("\nNão foi possível receber os dados no arquivo.\n");
@@ -534,26 +541,7 @@ void salvarDados(Funcionario *funcionarios){
 		fprintf(arq, "Dias trabalhados: %d\n", funcionarios[i].diasTrabalhados);
 		fprintf(arq, "Salário Bruto: %.2f\n", funcionarios[i].salarioBruto);
 		fprintf(arq, "Salário Líquido: %.2f\n\n", funcionarios[i].salarioLiquido);
-	}
-	
-	fclose(arq);
-}
-
-void lerDados(Funcionario *funcionarios){
-	FILE *arq = fopen("dados.txt", "r");
-
-	if(arq == NULL){
-		return;
-	}
-
-	for (int i = 0; i < codigo; i++)
-	{
-		fgets(funcionarios[i].nome, sizeof(funcionarios[i].nome), arq);
-		fgets(funcionarios[i].cargo, sizeof(funcionarios[i].cargo), arq);
-		fgets(funcionarios[i].cpf, sizeof(funcionarios[i].cpf), arq);
-		fscanf(arq, "%d", &funcionarios[i].diasTrabalhados);
-		fscanf(arq, "%f", &funcionarios[i].salarioBruto);
-		fscanf(arq, "%f", &funcionarios[i].salarioLiquido);
+		fprintf(arq, "-------------------------------------------\n");
 	}
 	
 	fclose(arq);
