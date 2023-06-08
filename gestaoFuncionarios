@@ -3,7 +3,6 @@
 #include <locale.h>
 #include <ctype.h>
 #include <string.h>
-#include <math.h>
 
 struct Funcionario {
 	char nome[100]; 
@@ -22,7 +21,7 @@ struct Funcionario {
 typedef struct Funcionario funcionarios;
 
 int menu(Funcionario *funcionarios);
-void cabecalho(), salvarDados(Funcionario *funcionarios);
+void cabecalho(), salvarDados(Funcionario *funcionarios), lerDados(Funcionario *funcionarios);
 void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
 void listarFuncionariosCargo(Funcionario *funcionarios), demissao(Funcionario *funcionarios);
 void folhaPagamento(Funcionario *funcionarios), reciboSalario(Funcionario *funcionarios);
@@ -205,9 +204,8 @@ void opcoes(int op, Funcionario *funcionarios){
 
 void cadastroFuncionario(Funcionario *funcionarios){
 
-	bool soNumero = false;
 	int qtdCpf, cont = 0, totalNome = 0, vazio = 0;
-	bool soLetra = false;
+	bool soLetra, cargoValido, cpfIgual, cpfValido;
 
 	do{
 		soLetra = false;
@@ -240,19 +238,17 @@ void cadastroFuncionario(Funcionario *funcionarios){
 			strcpy(funcionarios[codigo].nome, "NOME INDISPONÍVEL");
 		}
 		
-		
 		for(int i = 0; i < numeroLetrasNome; i++){
-			if(totalNome == numeroLetrasNome || funcionarios[codigo].nome[i] != ' '){
+			if(totalNome == numeroLetrasNome){
 			soLetra = true;
 			}
 		}
-		
 
-		if (soLetra == true){
+		if (soLetra){
 			break;
 		}
 		else{
-			printf("\nFormato de nome inválido! Informe um nome válido e tente novamente.\n");
+			printf("\nFormato de nome inválido! Informe um nome válido e tente novamente.\n\n");
 		}
 
 	} while (1);
@@ -261,8 +257,6 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	system("cls");
 	cabecalho();
 	cabecalhoCadastro();
-
-	valido = false;
 	
 	printf("Cargos disponíveis: \n");
 	for(int i = 0; i < 11; i++){
@@ -270,9 +264,12 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	}
 	
 	do{
+		cargoValido = false;
+
 	    printf("\nInforme o cargo do funcionario: ");
 	    gets(funcionarios[codigo].cargo);
 	    fflush(stdin); 
+
 		numeroLetrasCargo = strlen(funcionarios[codigo].cargo);        
 	
 		for(int contador = 0; contador < numeroLetrasCargo; contador++){
@@ -281,14 +278,14 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	
 		for(int contador = 0; contador < 11; contador++){
 			if(strcmp(funcionarios[codigo].cargo, listaDeCargos[contador]) == 0){
-				valido = true;
+				cargoValido = true;
 			}
 		}
 		
-		if(valido == true){
+		if(cargoValido){
 			break;
 		}else{
-			printf("\nCargo não existente! Informe um cargo da lista.\n");
+			printf("\nCargo não existente! Informe um cargo da lista.\n\n");
 		}
 		
 	}while(1);
@@ -297,16 +294,16 @@ void cadastroFuncionario(Funcionario *funcionarios){
 	cabecalho();
 	cabecalhoCadastro();
 
-	valido = false;
-	
 	do{
-		valido = false;
-		soNumero = false;
+		cpfValido = false;
+		cpfIgual = false;
+
 		printf("Informe o CPF (11 dígitos, sem pontos ou traços): ");
 		scanf("%s", &funcionarios[codigo].cpf);
 		fflush(stdin);
 		
 		cont = 0;
+		
 		for (int i = 0; i < funcionarios[codigo].cpf[i]; i++){
 			if (isdigit(funcionarios[codigo].cpf[i])){
 				cont++;
@@ -315,18 +312,32 @@ void cadastroFuncionario(Funcionario *funcionarios){
 
 		qtdCpf = strlen(funcionarios[codigo].cpf);
 		
-		if(cont == 11){
-			soNumero = true;
+		for (int i = 0; i < codigo; i++)
+		{
+			if (strcmp(funcionarios[codigo].cpf, funcionarios[i].cpf) == 0)
+			{
+				cpfIgual = true;
+				break;
+			}
+			
 		}
 		
-		if (qtdCpf == 11){
-			valido = true;
+		if (cpfIgual)
+		{
+			printf("\nCPF já cadastrado no sistema! Por favor, informe um novo CPF.\n\n");
+		}
+
+		if (qtdCpf == 11 and cont == 11){
+			cpfValido = true;
+		}
+
+		if (!cpfValido)
+		{
+			printf("\nFormato de CPF inválido! Informe um CPF válido.\n\n");
 		}
 	
-		if (valido == true && soNumero == true){
+		if (cpfValido and !cpfIgual){
 			break;
-		}else{
-			printf("\nFormato de CPF inválido! Informe um CPF válido.\n");
 		}
 		
 	} while (1);
@@ -436,7 +447,7 @@ void listarFuncionariosCargo(Funcionario *funcionarios){
 		}
 	}
 	if(!cargoD){
-		printf("ERRO! Não há funcionário com esse cadastrado no momento!\n");
+		printf("ERRO! Não há funcionário registrado neste cargo no momento!\n");
 	}
 	
 }
@@ -451,19 +462,16 @@ void demissao(Funcionario *funcionarios){
 
 	for (int i = 0; i < codigo; i++){
 		if (funcionarios->id == funcionarios[i].posi_id){
-			for (int i = funcionarios->id; i < codigo; i++){
-				funcionarios[i].id = funcionarios[i + 1].id - 1;
-				strcpy(funcionarios[i].nome, funcionarios[i + 1].nome);
-				strcpy(funcionarios[i].cargo, funcionarios[i + 1].cargo);
-				strcpy(funcionarios[i].cpf, funcionarios[i + 1].cpf);
-				
-				funcionarios[i].diasTrabalhados = funcionarios[i + 1].diasTrabalhados;
-				funcionarios[i].salarioDia = funcionarios[i + 1].salarioDia;
-				funcionarios[i].salarioBruto = funcionarios[i + 1].salarioBruto;
-				funcionarios[i].salarioLiquido = funcionarios[i + 1].salarioLiquido;
-				funcionarios[i].impostoRenda = funcionarios[i + 1].impostoRenda;
+			for (int j = funcionarios->id; j < codigo; j++){
+				funcionarios[j].id = funcionarios[j + 1].id - 1;
+				strcpy(funcionarios[j].nome, funcionarios[j + 1].nome);
+				strcpy(funcionarios[j].cargo, funcionarios[j + 1].cargo);
+				strcpy(funcionarios[j].cpf, funcionarios[j + 1].cpf);
+				funcionarios[j].diasTrabalhados = funcionarios[j + 1].diasTrabalhados;
+				funcionarios[j].salarioBruto = funcionarios[j + 1].salarioBruto;
+				funcionarios[j].salarioLiquido = funcionarios[j + 1].salarioLiquido;
+				funcionarios[j].impostoRenda = funcionarios[j + 1].impostoRenda;
 				valido = true;
-				break;
 			}
 
 			codigo--;
@@ -472,7 +480,7 @@ void demissao(Funcionario *funcionarios){
 		}
 	}
 	
-	if (valido != true){
+	if (!valido){
 		printf("\n\nO ID informado não existe! Informe um ID válido.\n");
 	}
 	
@@ -541,7 +549,6 @@ void salvarDados(Funcionario *funcionarios){
 		fprintf(arq, "Dias trabalhados: %d\n", funcionarios[i].diasTrabalhados);
 		fprintf(arq, "Salário Bruto: %.2f\n", funcionarios[i].salarioBruto);
 		fprintf(arq, "Salário Líquido: %.2f\n\n", funcionarios[i].salarioLiquido);
-		fprintf(arq, "-------------------------------------------\n");
 	}
 	
 	fclose(arq);
