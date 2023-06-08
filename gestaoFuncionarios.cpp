@@ -21,7 +21,7 @@ struct Funcionario {
 typedef struct Funcionario funcionarios;
 
 int menu(Funcionario *funcionarios);
-void cabecalho(), salvarDados(Funcionario *funcionarios), lerDados(Funcionario *funcionarios);
+void cabecalho(), salvarDados(Funcionario *funcionarios);
 void listarCargos(Funcionario *funcionarios), listarFuncionarios(Funcionario *funcionarios);
 void listarFuncionariosCargo(Funcionario *funcionarios), demissao(Funcionario *funcionarios);
 void folhaPagamento(Funcionario *funcionarios), reciboSalario(Funcionario *funcionarios);
@@ -312,18 +312,15 @@ void cadastroFuncionario(Funcionario *funcionarios){
 
 		qtdCpf = strlen(funcionarios[codigo].cpf);
 		
-		for (int i = 0; i < codigo; i++)
-		{
-			if (strcmp(funcionarios[codigo].cpf, funcionarios[i].cpf) == 0)
-			{
+		for (int i = 0; i < codigo; i++){
+			if (strcmp(funcionarios[codigo].cpf, funcionarios[i].cpf) == 0){
 				cpfIgual = true;
 				break;
 			}
 			
 		}
 		
-		if (cpfIgual)
-		{
+		if (cpfIgual){
 			printf("\nCPF já cadastrado no sistema! Por favor, informe um novo CPF.\n\n");
 		}
 
@@ -331,8 +328,7 @@ void cadastroFuncionario(Funcionario *funcionarios){
 			cpfValido = true;
 		}
 
-		if (!cpfValido)
-		{
+		if (!cpfValido){
 			printf("\nFormato de CPF inválido! Informe um CPF válido.\n\n");
 		}
 	
